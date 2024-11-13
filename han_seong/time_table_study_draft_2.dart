@@ -1,15 +1,15 @@
 // 테스트 완료 - 링크 어디갔지?
 // 테스트 완료한 부분
 // １。 시간표 틀 구현 완료
-// -> 현재 ９ ～ １７시에 대하여 １７시부턴 시간이 유동적으로 늘어나지는 못함 （협의 하에 업데이트로 구현 예정¿）
-// ２。 시간표 관련하여 현재 ｒｏｗ와 ｃｏｌ로 분류해놓음
+// -> 현재 9 ~ 17시에 대하여 17시부턴 시간이 유동적으로 늘어나지는 못함 (협의 하에 업데이트로 구현 예정?)
+// ２。 시간표 관련하여 현재 row와 col로 분류해놓음
 // -> 하나씩 개별로는 접근 불가 -> 반복문과 함수를 통한 접근 시 가능할 것으로 소견됨。
 // ３。 추가 및 불러오기 버튼 구현 완료
-// -> 기능 구현 예정 （아래 ６번 참조）
+// -> 기능 구현 예정 (아래 ６번 참조)
 
 // 사후 파트 담당 시 구현 예정
 // １。 시간표 과목 텍스트 및 담당 교수 표시 구현 예정
-// ２。 시간표 과목 텍스트 및 （시간） 수정 구현 예정
+// ２。 시간표 과목 텍스트 및 (시간) 수정 구현 예정
 // ３。 시간표 미디어 쿼리 구현 예정
 // ４。 위젯 크기 초과 관련 오류 수정 예정
 // -> 관련하여 어느 정도 구현을 완료한 줄 알았으나
@@ -46,7 +46,6 @@ class _MyCardState extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: Column(
           children: [
@@ -57,7 +56,7 @@ class _MyCardState extends State<MyCard> {
                   // 요일 열을 반복적으로 생성
                   ...List.generate(
                     week.length,
-                        (index) => buildDayColumn(index),
+                    (index) => buildDayColumn(index),
                   ),
                 ],
               ),
@@ -115,7 +114,7 @@ Expanded buildTimeColumn(BuildContext context) {
         // 시간 값이 들어가는 열을 반복적으로 생성
         ...List.generate(
           kColumnLength,
-              (index) {
+          (index) {
             if (index % 2 == 0) {
               return const Divider(
                 color: Colors.grey,
@@ -133,9 +132,7 @@ Expanded buildTimeColumn(BuildContext context) {
                         width: 20,
                       ),
                       Center(
-                        child: Text(
-                            '${index ~/ 2 + 9}'
-                        ),
+                        child: Text('${index ~/ 2 + 9}'),
                       ),
                     ],
                   ),
@@ -232,32 +229,41 @@ Expanded buildTimeColumn(BuildContext context) {
                         */
                         ...List.generate(
                           1, // 5개의 행 생성
-                              (rowIndex) {
+                          (rowIndex) {
                             return Row(
                               children: [
                                 // 각 SizedBox에 행 인덱스를 추가하여 고유한 키 생성
                                 SizedBox(
                                   key: Key('sizedBox-$rowIndex-1'),
-                                  height: MediaQuery.of(context).size.height * 0.05,
-                                  width: MediaQuery.of(context).size.width * 0.075,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.075,
                                 ),
                                 // 행(rowIndex)와 열(colIndex)에 따라 각 Container에 접근 가능
                                 ...List.generate(5, (colIndex) {
                                   return Row(
                                     children: [
                                       Container(
-                                        key: Key('container-$rowIndex-$colIndex'), // 행, 열 위치로 키 설정
+                                        key: Key(
+                                            'container-$rowIndex-$colIndex'), // 행, 열 위치로 키 설정
                                         decoration: BoxDecoration(
-                                          color:
-                                          (rowIndex + colIndex) % 2 == 0 ? Colors.red : Colors.blue, // 인덱스에 따른 색상 변경
+                                          color: (rowIndex + colIndex) % 2 == 0
+                                              ? Colors.red
+                                              : Colors.blue, // 인덱스에 따른 색상 변경
                                         ),
                                         width: 70,
                                         height: 50,
                                       ),
                                       SizedBox(
-                                        key: Key('sizedBox-$rowIndex-$colIndex-2'),
-                                        height: MediaQuery.of(context).size.height * 0.1,
-                                        width: MediaQuery.of(context).size.height * 0.1,
+                                        key: Key(
+                                            'sizedBox-$rowIndex-$colIndex-2'),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.1,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.1,
                                       ),
                                     ],
                                   );
@@ -313,23 +319,17 @@ Widget buildDayColumn(int index) {
         SizedBox(
           height: 20,
           child: Center(
-            child: Text(
-                '${week[index]}' // 요일 텍스트 추가
-            ),
+            child: Text('${week[index]}' // 요일 텍스트 추가
+                ),
           ),
         ),
-
-
 
         // 요일의 시간 박스를 반복적으로 생성
         ...List.generate(
           kColumnLength,
-              (index) {
+          (index) {
             if (index % 2 == 0) {
-              return const Divider(
-                  color: Colors.grey,
-                  height: 0
-              );
+              return const Divider(color: Colors.grey, height: 0);
               // 짝수 인덱스에 구분선 추가
             }
             return SizedBox(
