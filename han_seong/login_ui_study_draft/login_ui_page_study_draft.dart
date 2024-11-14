@@ -1,7 +1,21 @@
-// github : https://github.com/bimalkaf/Flutter_SinglePages/blob/master/Login_Simple_3/login_page.dart
-// youtube : https://www.youtube.com/watch?v=cNGCBhFKVUQ
+// 테스트 완료 - 링크 어디갔지?
+// 테스트 완료한 부분
+// １. 로그인 틀 구현 완료 + 아이디 비밀번호 입력 및 검증 구현 어느정도 완료
+// -> 자세한 기능 구현 예정 (아래 4번 참조)
+// ２. 비밀번호 찾기, 회원가입, 뒤로 가기 등등 필요한 버튼 위젯 구현
+// -> 기능 구현 예정 (아래 3번 참조)
+// ３. 자동 로그인 기능 어느정도 구현 완료
+// -> 자세한 기능 구현 예정 (아래 3번 참조)
 
-// 모르는거 + 코드 설명 자세히 쓰기
+// 사후 파트 담당 시 구현 예정
+// １。 회원가입 구현
+// ２。 유저 정보 창 구현
+// ３。 비밀번호 찾기, 자동 로그인 구현 및 뒤로 가기 등등 화면 이동 구현 완료
+// ４。 로그인 암호화, 입력 검증 변수 구현 + 비밀번호 암호화 관련 구현 예정
+
+// 업데이트안?
+// 1. oauth2o
+// 2.
 
 import 'package:flutter/material.dart';
 
@@ -185,5 +199,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-//setstate 등 모르는거 해야함
