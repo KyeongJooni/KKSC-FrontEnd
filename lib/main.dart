@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kksc_app_fe/Honeytip/Honeytip.dart';
-import 'package:kksc_app_fe/Modules/BottomNavbar.dart';
-import 'package:kksc_app_fe/Mypage/Mypage.dart';
-import 'package:kksc_app_fe/Notice/Notice.dart';
-import 'package:kksc_app_fe/Restaurant/Restaurant.dart';
-import 'package:kksc_app_fe/Timetable/Timetable.dart';
+import 'package:kksc_app_fe/Screen/Honeytip/Honeytip.dart';
+import 'package:kksc_app_fe/Component/BottomNavbar.dart';
+import 'package:kksc_app_fe/Screen/Mypage/Mypage.dart';
+import 'package:kksc_app_fe/Screen/Notice/Notice.dart';
+import 'package:kksc_app_fe/Screen/Restaurant/Restaurant.dart';
+import 'package:kksc_app_fe/Screen/Timetable/Timetable.dart';
 
 void main() {
   runApp(const MyApp());
