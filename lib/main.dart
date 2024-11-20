@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: GCG_Bottomnavbar(),
+        home: Honeytip(),
+
+
     );
   }
 }
