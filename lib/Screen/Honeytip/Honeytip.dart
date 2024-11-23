@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kksc_app_fe/Modules/CommonColumnField.dart';
+import 'package:kksc_app_fe/Component/CommonColumnField.dart';
 
 class Honeytip extends StatelessWidget {
   // 아이콘, 타이틀, 서브타이틀 리스트
