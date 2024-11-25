@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:kksc_app_fe/Screen/Restaurant/RestaurantList.dart';
 
 class Restaurant extends StatelessWidget {
   final List<Map<String, String>> cardData = [
     {
       "label": "한식",
-      "img": "assets/img/restrauntExample.jpeg",
+      "img": "assets/img/restrauntExample1.jpeg",
       "name": "화리화리",
       "text": "평점: 4.5"
     },
-    {
-      "label": "양식",
-      "img": "assets/img/restrauntExample.jpeg",
-      "name": "피자마켓",
-      "text": "평점: 4.7"
-    },
-    {
-      "label": "중식",
-      "img": "assets/img/restrauntExample.jpeg",
-      "name": "황금짜장",
-      "text": "평점: 4.3"
-    },
-    {
-      "label": "분식",
-      "img": "assets/img/restrauntExample.jpeg",
-      "name": "떡볶이천국",
-      "text": "평점: 4.8"
-    },
+    {"label": "한식", "img": "", "name": "전주식당", "text": "평점: 4.7"},
+    {"label": "중식", "img": "", "name": "차이나타운", "text": "평점: 4.3"},
+    {"label": "분식", "img": "", "name": "엉터리분식", "text": "평점: 4.8"},
+  ];
+
+  final List<Map<String, String>> reviewData = [
+    {"user": "사용자1", "content": "맛있는 음식이었어요"},
+    {"user": "사용자2", "content": "별로였어요"},
+    {"user": "사용자3", "content": "음 굿"}
   ];
 
   @override
@@ -93,18 +85,7 @@ class Restaurant extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.only(top: 16),
-                height: 40,
-                child: const Text(
-                  "인기 맛집 추천",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    height: 24 / 18,
-                  ),
-                ),
-              ),
+              GetTitle(title: "인기 맛집 추천"),
               SizedBox(
                 height: 8,
               ),
@@ -124,7 +105,7 @@ class Restaurant extends StatelessWidget {
                       ),
                       child: LabelCard(
                         label: item["label"],
-                        img: item["img"]!,
+                        img: item["img"],
                         name: item["name"]!,
                         text: item["text"]!,
                       ),
@@ -135,7 +116,66 @@ class Restaurant extends StatelessWidget {
             ],
           )),
         ),
+        SliverPadding(
+          padding: EdgeInsets.only(right: 12, left: 12, top: 8),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GetTitle(
+                  title: "사용자 리뷰",
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                    height: 116,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: reviewData.length,
+                      itemBuilder: (context, index) {
+                        final item = reviewData[index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            left: index == 0 ? 0 : 4, // 첫 번째 카드의 왼쪽 간격 없음
+                            right: index == cardData.length - 1
+                                ? 0
+                                : 4, // 마지막 카드의 오른쪽 간격 없음
+                          ),
+                          child: ReviewCard(
+                            user: item["user"]!,
+                            content: item["content"]!,
+                          ),
+                        );
+                      },
+                    ))
+              ],
+            ),
+          ),
+        )
       ],
+    );
+  }
+}
+
+class GetTitle extends StatelessWidget {
+  String title;
+  GetTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 16),
+      height: 40,
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          height: 24 / 18,
+        ),
+      ),
     );
   }
 }
@@ -151,10 +191,24 @@ class NavigateButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // 버튼 클릭 시 동작
+        // 버튼 클릭 시 동작
         print("Navigator .. ");
+        if (text == "학교 내부 식당") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                print("학교 내부 식당");
+                return RestaurantView();
+              },
+            ),
+          );
+        } else {
+          print("학교 외부 식당");
+        }
       },
       child: Container(
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         width: (MediaQuery.of(context).size.width - 32) / 2, // 버튼의 너비
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
@@ -170,8 +224,8 @@ class NavigateButton extends StatelessWidget {
             Container(
               width: 48,
               height: 48,
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(0, 0, 0, 0.1),
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(0, 0, 0, 0.1),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -181,7 +235,7 @@ class NavigateButton extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Container(
@@ -205,18 +259,18 @@ class NavigateButton extends StatelessWidget {
 
 class LabelCard extends StatelessWidget {
   final String? label;
-  final String img;
+  final String? img;
   final String name;
   final String text;
 
   const LabelCard(
-      {this.label, required this.img, required this.name, required this.text});
+      {this.label, this.img, required this.name, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (MediaQuery.of(context).size.width - 32) / 2, //카드 너비
-      height: (MediaQuery.of(context).size.width - 32) / 2 + 60, //카드 높이
+      width: 164, //카드 너비
+      height: 224, //카드 높이
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
@@ -230,13 +284,24 @@ class LabelCard extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: (MediaQuery.of(context).size.width - 32) / 2,
-                color: Color.fromRGBO(0, 0, 0, 0.05),
-                child: Image.asset(
-                  fit: BoxFit.cover,
-                  img,
-                ),
-              ),
+                  height: 164,
+                  color: Color.fromRGBO(0, 0, 0, 0.05),
+                  child: Image.asset(
+                    fit: BoxFit.cover,
+                    img!,
+                    errorBuilder: (context, error, stackTrace) {
+                      // 이미지 로드 실패 시 "No Image" 표시
+                      return const Center(
+                        child: Text(
+                          "No Image",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      );
+                    },
+                  )),
               if (label != null && label!.isNotEmpty)
                 Positioned(
                   top: 0,
@@ -287,6 +352,98 @@ class LabelCard extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   )
                 ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ReviewCard extends StatelessWidget {
+  final String user;
+  final String content;
+
+  const ReviewCard({required this.user, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 220,
+      height: 116,
+      padding: EdgeInsets.all(12),
+      decoration: const BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+        color: Color.fromRGBO(0, 0, 0, 0.05),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 196,
+            height: 24,
+            child: Row(
+              children: [
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(0, 0, 0, 0.1),
+                      borderRadius: BorderRadius.circular(24)),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  width: 100,
+                  child: Text(
+                    user,
+                    style: const TextStyle(
+                        height: 16 / 12,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                const Icon(
+                  Icons.star,
+                  size: 12,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                const Icon(
+                  Icons.star,
+                  size: 12,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                const Icon(
+                  Icons.star,
+                  size: 12,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                const Icon(
+                  Icons.star,
+                  size: 12,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                const Icon(
+                  Icons.star,
+                  size: 12,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          SizedBox(
+            width: 196,
+            height: 60,
+            child: Text(
+              content,
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                height: 20 / 14,
               ),
             ),
           )
