@@ -1,1 +1,1 @@
-const defaultFontsPath="assets/fonts/Roboto-Regular.ttf";
+const defaultFontName = "Roboto";

@@ -6,6 +6,7 @@ class GCG_Bottomnavbar extends StatefulWidget {
 }
 
 class _BottomnavbarState extends State<GCG_Bottomnavbar> {
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -16,19 +17,29 @@ class _BottomnavbarState extends State<GCG_Bottomnavbar> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('하단 네비게이션 바'),
-        backgroundColor: Colors.blue,
+        title: Text(
+          '하단 네비게이션 바',
+          style: textTheme.titleLarge, //텍스트 테마 적용 방법
+        ),
+        backgroundColor: colorTheme.surfaceContainer, //컬러 테마 적용 방법
       ),
       body: Center(
-        child: Text(
-          '선택된 페이지: ${_selectedIndex + 1}',
-          style: TextStyle(fontSize: 20),
+        child: Container(
+          color: colorTheme.primary, //컬러 테마 적용 방법
+          child: Text(
+            '선택된 페이지 ${_selectedIndex}',
+            style: textTheme.displayLarge, //텍스트 테마 적용 방법
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // 아이템이 많을 때 고정
+        type: BottomNavigationBarType.fixed,
+        // 아이템이 많을 때 고정
         backgroundColor: Colors.blue,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
