@@ -9,6 +9,29 @@ const greyColor5=Color(0xFFB6B6B6);
 const greyColor6=Color(0xFFA4AEC2);
 const greyColor7=Color(0xFFD7DEED);
 
+// color : 사용해야할 색상 집어넣기, 안넣을시 검정색
+// fontPath : "assets/fonts/[font name].ttf" 형식의 데이터가 들어감
+// 안넣을 시 "assets/fonts/Roboto-Regular.ttf" (기본)
+
+const String defaultFontsPath = "assets/fonts/Roboto-Regular.ttf";
+
+TextStyle displayLarge
+    ({Color colors = Colors.black, String fontPath = defaultFontsPath})
+=> TextStyle(
+  fontFamily: fontPath,
+  color: colors,
+  fontSize: 57,
+  letterSpacing: -0.25,
+  height: 64,
+);
+
+// 사용 시 style: displayLarge(), 이런 식으로 사용
+
+final colorLightTheme = MaterialTheme.lightScheme();
+
+// 사용 시
+
+// 사용 용도 및 장소 :
 const TextStyle3 = TextStyle(
   // fontSize: 16,
   // color: greyColor1,
@@ -16,6 +39,7 @@ const TextStyle3 = TextStyle(
   fontWeight: FontWeight.w300, // Bold
 );
 
+// 사용 용도 및 장소 :
 const TextStyle4 = TextStyle(
   // fontSize: 16,
   // color: greyColor2,
@@ -24,6 +48,7 @@ const TextStyle4 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyleSub4 = TextStyle(
   fontSize: 16,
   // color: greyColor2,
@@ -32,6 +57,7 @@ const TextStyleSub4 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyle5 = TextStyle(
   // fontSize: 16,
   // color: greyColor1,
@@ -39,6 +65,7 @@ const TextStyle5 = TextStyle(
   fontWeight: FontWeight.w500, // Bold
 );
 
+// 사용 용도 및 장소 :
 const TextStyleSub5 = TextStyle(
   // fontSize: 16,
   color: Colors.grey,
@@ -46,6 +73,7 @@ const TextStyleSub5 = TextStyle(
   fontWeight: FontWeight.w500, // Bold
 );
 
+// 사용 용도 및 장소 :
 const TextStyle6 = TextStyle(
   // fontSize: 16,
   // color: greyColor2,
@@ -54,6 +82,7 @@ const TextStyle6 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyleMain6 = TextStyle(
   // fontSize: 16,
   // color: greyColor2,
@@ -62,6 +91,7 @@ const TextStyleMain6 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyleRating6 = TextStyle(
   fontSize: 20,
   // color: greyColor2,
@@ -70,6 +100,7 @@ const TextStyleRating6 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyleSub6 = TextStyle(
   fontSize: 18,
   // color: greyColor2,
@@ -78,6 +109,7 @@ const TextStyleSub6 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyle7 = TextStyle(
   fontSize: 16,
   // color: greyColor1,
@@ -85,6 +117,7 @@ const TextStyle7 = TextStyle(
   fontWeight: FontWeight.w700, // Bold
 );
 
+// 사용 용도 및 장소 :
 const TextStyleMain7 = TextStyle(
   fontSize: 20,
   // color: greyColor1,
@@ -92,6 +125,7 @@ const TextStyleMain7 = TextStyle(
   fontWeight: FontWeight.w700, // Bold
 );
 
+// 사용 용도 및 장소 :
 const TextStyle8 = TextStyle(
   // fontSize: 16,
   // color: greyColor2,
@@ -100,6 +134,7 @@ const TextStyle8 = TextStyle(
   // decoration: TextDecoration.underline,
 );
 
+// 사용 용도 및 장소 :
 const TextStyleMain8 = TextStyle(
   fontSize: 24,
   // color: greyColor1,

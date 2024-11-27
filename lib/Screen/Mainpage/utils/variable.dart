@@ -1,27 +1,29 @@
-// 1. 이 부분 for문 구현 O －＞ ｆｏｒ문 구현은 안했고 그냥 뷰어 가능하게는 해서 나중에 추가 가능하게 해달라할 때 코딩은 해야함¡¡ （아마도）
-// 2. 폰트 이슈 해결 O
-// 3. 계획서나 카톡이나 영상 등등 기록한거 보면서 안한 부분 해결
-// 주석 양식 통일!!
-
-// + kksc 할 일 써놓은거 중 없는거 체크
-
-// 3. 피그마 각자 다운하는 법 뭐지
-// 4. 참고본 만들라고 한거 외부로 꺼내라고한거 꺼낼 때 트리 만들어야하나
-// 5. 커밋 관련해서 할거 해놓기 ▲ (어느정도 함) 및 영상 내용 중요한거만 정리
-
 import 'package:flutter/material.dart';
+
+String IconStudent = 'assets/img/icon/bell.png';
+String IconBell = 'assets/img/icon/bell.png';
+String IconMegaphone = 'assets/img/icon/megaphone.png';
+String IconPin = 'assets/img/icon/pin.png';
+String IconPizza = 'assets/img/icon/pizza.png';
+
 // part of main
-double rate_food = 4.5;
-double other_rate_food = 4.0;
 
-int review_count = 100;
-int other_review_count = 80;
+//
+double RateFood = 4.5;
+double OtherRateFood = 4.0;
 
-String FoodPlaceName = '맛집 이름';
-String OtherFoodPlaceName = '또 다른 맛집';
+int ReviewCount = 100;
+int OtherReviewCount = 80;
+
+// 사용 용도 : drawer에 사용자 정보 표시
+// 사용 장소 : main.dart
+
+String Id = '김한성'; // 구현되면 매개변수로 받아야할듯
+String Email = 'gkstjd6097@gmail.com';
+String ImageURL = 'assets/img/icon/kksc_logo.jpg';
 
 String FoodPlaceNameKor = '맛집 이름';
-String OtherFoodPlaceNameKor = '또 다른 맛집';
+String OtherFoodPlaceNameKor = '또 다른 맛집'; // shift + f6 -> or alt + f7
 
 String FoodPlaceNameEng = 'Good Food Place Name';
 String OtherFoodPlaceNameEng = 'Another Food Place Name';
@@ -42,6 +44,18 @@ List TitleText = [
   "맛집 리뷰"
 ];
 
+String FoodPlaceName = '맛집 이름';
+String OtherFoodPlaceName = '또 다른 맛집';
+
+String ImageURL_AppBar = 'assets/img/icon/gachon_logo.png';
+
+String VersionInnerText = '1.0.0';
+String Version = 'Version: $VersionInnerText';
+
+var isLanguage = true;
+// true : 한국어
+// false : 영어
+
 List SubTitleText = [
   "신입생",
   "신입생들을 위한 조언과 팁",
@@ -49,11 +63,13 @@ List SubTitleText = [
   "시간표",
   "시간표 짜는 방법 소개",
 
-  "평점 : $rate_food",
-  "평점 : $other_rate_food",
+  "평점 : $RateFood",
+  "평점 : $OtherRateFood",
 
-  "리뷰 : $review_count개",
-  "리뷰 : $other_review_count개",
+  "리뷰 : $ReviewCount개",
+  "리뷰 : $OtherReviewCount개",
+
+  "맛집 리뷰",
 ];
 
 List TitleTextKor = [
@@ -79,11 +95,11 @@ List SubTitleTextKor = [
   "시간표",
   "시간표 짜는 방법 소개",
 
-  "평점 : $rate_food",
-  "평점 : $other_rate_food",
+  "평점 : $RateFood",
+  "평점 : $OtherRateFood",
 
-  "리뷰 : $review_count개",
-  "리뷰 : $other_review_count개",
+  "리뷰 : $ReviewCount개",
+  "리뷰 : $OtherReviewCount개",
 ];
 
 List TitleTextEng = [
@@ -95,6 +111,7 @@ List TitleTextEng = [
   "Delicious Near The Gachon Univ",
   FoodPlaceNameEng,
   OtherFoodPlaceNameEng,
+
   "Delicious Food Review"
 ];
 
@@ -103,73 +120,69 @@ List SubTitleTextEng = [
   "Comments and Tips For Freshman",
   "TimeTable",
   "Introduction of Writing TimeTable",
-  "rate : $rate_food",
-  "rate : $other_rate_food",
-  "review : $review_count",
-  "review : $other_review_count",
+  "rate : $RateFood",
+  "rate : $OtherRateFood",
+  "review : $ReviewCount",
+  "review : $OtherReviewCount",
 ];
 
-String iconStudent = 'assets/images/icon/bell.png';
-String iconBell = 'assets/images/icon/bell.png';
-String iconMegaphone = 'assets/images/icon/megaphone.png';
-String iconPin = 'assets/images/icon/pin.png';
-String iconPizza = 'assets/images/icon/pizza.png';
-
 // part of review
-String NewReviewerName = ''; // 변수로 받아올 예정
-String NewReviewerText = '';
+String NewReviewerName = '맛집 리뷰어 1'; // 변수로 받아올 예정
+String NewReviewerName2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
+String NewReviewerName3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
+
+String NewReviewerNameKor = '맛집 리뷰어 1'; // 변수로 받아올 예정
+String NewReviewerNameKor2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
+String NewReviewerNameKor3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
+
+String NewReviewerNameEng = 'Food Reviewer 1'; // 변수로 받아올 예정
+String NewReviewerNameEng2 = 'Food Reviewer 2'; // 변수로 받아올 예정
+String NewReviewerNameEng3 = 'Food Reviewer 3'; // 변수로 받아올 예정
 
 List ReviewerName = [
-  "맛집 리뷰어1",
-  "맛집 리뷰어2",
-  "맛집 리뷰어3",
+  NewReviewerName,
+  NewReviewerName,
+  NewReviewerName,
+];
+
+List ReviewerNameKor = [
+  NewReviewerNameKor,
+  NewReviewerNameKor2,
+  NewReviewerNameKor3,
+];
+
+List ReviewerNameEng = [
+  NewReviewerNameEng,
+  NewReviewerNameEng2,
+  NewReviewerNameEng3,
 ];
 
 List ReviewerText = [
-  "매우 만족",
-  "다소 만족",
-  "보통",
-  "불만족",
-  "최악의 맛집",
+  NewReviewerText,
+  NewReviewerText2,
+  NewReviewerText3,
 ];
 
-// 그레이 색상
-const greyColor1=Color(0xFFA7AFC0); // hintText 글자 색
-const greyColor2=Color(0xFF98A1B4); // 글자 색
-const greyColor3=Color(0xFFE0E4EB); // 버튼 배경색
-const greyColor4=Color(0xFF6D7382); // style 버튼 글자 색
-const greyColor5=Color(0xFFB6B6B6); // 휴지통 색
-const greyColor6=Color(0xFFA4AEC2); // 바텀내비게이션 아이콘 색
-const greyColor7=Color(0xFFD7DEED); // 채팅 리스트의 시간 글자 색
+List ReviewerTextKor = [
+  NewReviewerTextKor,
+  NewReviewerTextKor2,
+  NewReviewerTextKor3,
+];
 
-// 회색 글자
-// 회색, 16px, 두꺼운 글자 : hintText 글꼴
-const greyTextStyle1 = TextStyle(
-  fontSize: 16,
-  color: greyColor1,
-  fontFamily: 'NotoSansKR',
-  fontWeight: FontWeight.w700, // Bold
-);
+List ReviewerTextEng = [
+  NewReviewerTextEng,
+  NewReviewerTextEng2,
+  NewReviewerTextEng3,
+];
 
-// 회색, 16px, 적당한 글자, 밑줄 : 아이디찾기, 비밀번호 찾기
-const greyTextStyle2 = TextStyle(
-  fontSize: 16,
-  color: greyColor2,
-  fontFamily: 'NotoSansKR',
-  fontWeight: FontWeight.w500, // Medium
-  decoration: TextDecoration.underline,
-);
+String NewReviewerText = '맛집 리뷰어 1'; // 변수로 받아올 예정
+String NewReviewerText2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
+String NewReviewerText3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
 
-class Variable extends StatefulWidget {
-  const Variable({super.key});
+String NewReviewerTextKor = "매우 만족"; // 변수로 받아올 예정
+String NewReviewerTextKor2 = "다소 만족"; // 변수로 받아올 예정
+String NewReviewerTextKor3 = "보통"; // 변수로 받아올 예정
 
-  @override
-  State<Variable> createState() => _VariableState();
-}
-
-class _VariableState extends State<Variable> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+String NewReviewerTextEng = 'Very nice'; // 변수로 받아올 예정
+String NewReviewerTextEng2 = 'Sometime good'; // 변수로 받아올 예정
+String NewReviewerTextEng3 = 'Simple'; // 변수로 받아올 예정
