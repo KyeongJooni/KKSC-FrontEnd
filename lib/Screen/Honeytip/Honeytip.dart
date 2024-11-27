@@ -1,63 +1,142 @@
 import 'package:flutter/material.dart';
 import 'package:kksc_app_fe/Component/LabelCard.dart';
 
-class Honeytip extends StatelessWidget {
+void main() {
+  runApp(HoneytipApp()); // 'Honeytip' 대신 'HoneytipApp'으로 변경
+}
+
+class HoneytipApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("가천대학교"),
-          backgroundColor: Colors.blue,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
+      title: 'Gachon University Tips',
+      home: HoneytipScreen(),
+    );
+  }
+}
+
+class HoneytipScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('가천대학교', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color(0xFF033DFE),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu, color: Colors.white),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 첫 번째 섹션
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '선배들의 꿀팁',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    '편의 시설',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: LabelCard(
+                            label: "Study",
+                            name: "Library Access Pass",
+                            text: "인원 24/7",
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        SizedBox(
+                          width: 200,
+                          child: LabelCard(
+                            label: "Food",
+                            name: "Cafeteria",
+                            text: "메뉴 매일 업데이트",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(color: Colors.grey), // 섹션 구분선 추가
+            // 두 번째 섹션
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.grey[300],
+                      radius: 25,
+                    ),
+                    title: Text(
+                      'Exclusive Insider Tips',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Secret shortcuts revealed',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    '새내기들을 위한 팁',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    leading: Image.asset(
+                      'assets/school.png',
+                      width: 35,
+                      height: 35,
+                    ),
+                    title: Text('학교 길안내'),
+                    subtitle: Text(
+                      '복정동 가는 지름길',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Image.asset(
+                      'assets/bulb.png',
+                      width: 37,
+                      height: 37,
+                    ),
+                    title: Text('공부 팁'),
+                    subtitle: Text(
+                      '학교에서 공부하기 좋은 곳',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  Divider(color: Colors.grey),
+                ],
+              ),
             ),
           ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '선배들의 꿀팁',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-              Text(
-                '편의 시설',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              SizedBox(height: 16), // 텍스트와 Row 사이 간격
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      child: LabelCard(
-                        label: "Study",
-                        name: "Library Access Pass",
-                        text: "인원 24/7",
-                      ),
-                    ),
-                    SizedBox(width: 16), // 카드 간 간격
-                    SizedBox(
-                      width: 200,
-                      child: LabelCard(
-                        label: "Food",
-                        name: "Cafeteria",
-                        text: "메뉴 매일 업데이트",
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
