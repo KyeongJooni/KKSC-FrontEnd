@@ -68,6 +68,13 @@ class Restaurant extends StatelessWidget {
     },
   ];
 
+  final List<Map<String, String>> FamousRstrnData = [
+    {"type": "한식", "content": "이 식당은 한식 메뉴를 추천해요", "userName": "식당리뷰러"},
+    {"type": "중식", "content": "이 식당은 중식 메뉴를 추천해요", "userName": "맛집리뷰러"},
+    {"type": "양식", "content": "이 식당은 양식 메뉴를 추천해요", "userName": "양식냠"},
+    {"type": "일식", "content": "이 식당은 일식 메뉴를 추천해요", "userName": "오이시"},
+  ];
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> groupedData =
@@ -242,6 +249,39 @@ class Restaurant extends StatelessWidget {
             ],
           )),
         ),
+        SliverPadding(
+            padding: EdgeInsets.only(right: 12, left: 12, top: 8),
+            sliver: SliverToBoxAdapter(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  GetTitle(title: "맛집 리뷰"),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  SizedBox(
+                    height: 112, // 고정된 가로 스크롤 영역 높이
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: FamousRstrnData.length,
+                      itemBuilder: (context, index) {
+                        final item = FamousRstrnData[index];
+                        return Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0 ? 0 : 4, // 첫 번째 카드의 왼쪽 간격 없음
+                              right: index == cardData.length - 1
+                                  ? 0
+                                  : 4, // 마지막 카드의 오른쪽 간격 없음
+                            ),
+                            child: FamousRstrnReview(
+                              type: item["type"]!,
+                              userName: item["userName"]!,
+                              content: item["content"]!,
+                            ));
+                      },
+                    ),
+                  ),
+                ])))
       ],
     );
   }
@@ -258,7 +298,7 @@ class GetTitle extends StatelessWidget {
       height: 40,
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w500,
           height: 24 / 18,
@@ -278,15 +318,11 @@ class NavigateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // 버튼 클릭 시 동작
-        // 버튼 클릭 시 동작
-        print("Navigator .. ");
         if (text == "학교 내부 식당") {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) {
-                print("학교 내부 식당");
                 return RestaurantView();
               },
             ),
@@ -297,7 +333,7 @@ class NavigateButton extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(4),
-        width: (MediaQuery.of(context).size.width - 32) / 2, // 버튼의 너비
+        width: (MediaQuery.of(context).size.width - 32) / 2,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           border: Border.all(
@@ -398,7 +434,7 @@ class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
   void initState() {
     super.initState();
     _pageController.addListener(() {
-      // `round()`를 호출하여 정확한 페이지 값을 가져옵니다.
+      // `round()`를 호출하여 정확한 페이지 값 가져옴
       final page = _pageController.page?.round() ?? 0;
       if (_currentPage != page) {
         setState(() {
@@ -416,13 +452,14 @@ class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Container(
       width: 164, // 카드 너비
       height: 254, // 카드 높이
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
-          color: Color.fromRGBO(0, 0, 0, 0.1),
+          color: const Color.fromRGBO(0, 0, 0, 0.1),
           width: 1,
         ),
       ),
@@ -487,13 +524,8 @@ class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
                 // 텍스트 내용
                 Text(
                   widget.content,
-                  maxLines: 2, // 텍스트 줄 수 제한
-                  overflow: TextOverflow.ellipsis, // 텍스트 초과 시 처리
-                  style: TextStyle(
-                    fontSize: 12,
-                    height: 16 / 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                  maxLines: 2,
+                  style: textTheme.bodySmall,
                 ),
                 SizedBox(height: 8),
                 // 키워드
@@ -512,17 +544,12 @@ class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
                   child: Center(
                     child: Text(
                       widget.keyword,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black,
-                        height: 16 / 12,
-                      ),
+                      style: textTheme.bodySmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
                 SizedBox(height: 6),
-                // 사용자 정보 (아바타 + 이름)
                 Row(
                   children: [
                     Container(
@@ -535,23 +562,107 @@ class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
                     ),
                     SizedBox(width: 8),
                     Expanded(
-                      // 이름이 길 경우 대응
-                      child: Text(
-                        widget.userName,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          height: 16 / 12,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: Text(widget.userName,
+                          style: textTheme.bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w500)),
                     ),
                   ],
                 ),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class FamousRstrnReview extends StatelessWidget {
+  final String type;
+  final String content;
+  final String userName;
+
+  const FamousRstrnReview(
+      {required this.type, required this.userName, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.05)),
+          ),
+          SizedBox(
+            width: 6,
+          ),
+          SizedBox(
+            width: 244,
+            height: 98,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text("$type 맛집"),
+                ),
+                Container(
+                  width: 45,
+                  height: 20,
+                  padding:
+                      EdgeInsets.only(top: 2, bottom: 2, left: 4, right: 4),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(0, 0, 0, 0.05),
+                    border: Border.all(
+                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: Center(
+                    child: Text(
+                      type,
+                      style: textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(content,
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 20 / 12,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Text(userName,
+                        style: textTheme.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.w500)),
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
