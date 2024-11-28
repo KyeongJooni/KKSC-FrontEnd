@@ -2,6 +2,7 @@ import 'package:kksc_app_fe/Component/ReviewCard.dart';
 import 'package:flutter/material.dart';
 import 'package:kksc_app_fe/Screen/Restaurant/RestaurantList.dart';
 import 'package:kksc_app_fe/Component/LabelCard.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Restaurant extends StatelessWidget {
   final List<Map<String, String>> cardData = [
@@ -22,8 +23,56 @@ class Restaurant extends StatelessWidget {
     {"user": "사용자3", "content": "음 굿", "starCount": "3"}
   ];
 
+  final List<Map<String, String>> famousRestaurantData = [
+    {
+      "restaurant": "화리화리",
+      "img": "assets/img/restrauntExample1.jpeg",
+      "userName": "맛집 블로거",
+      "content": "추천합니다",
+      "keyword": "추천"
+    },
+    {
+      "restaurant": "화리화리",
+      "img": "assets/img/restrauntExample1.jpeg",
+      "userName": "맛집 블로거",
+      "content": "추천합니다",
+      "keyword": "추천"
+    },
+    {
+      "restaurant": "화리화리",
+      "img": "assets/img/restrauntExample1.jpeg",
+      "userName": "맛집 블로거",
+      "content": "추천합니다",
+      "keyword": "추천"
+    },
+    {
+      "restaurant": "화리화리",
+      "img": "assets/img/restrauntExample1.jpeg",
+      "userName": "맛집 블로거",
+      "content": "추천합니다",
+      "keyword": "추천"
+    },
+    {
+      "restaurant": "전주식당",
+      "img": "",
+      "userName": "흠",
+      "content": "아주 맛있어요",
+      "keyword": "분위기"
+    },
+    {
+      "restaurant": "차이나타운",
+      "img": "",
+      "userName": "흠",
+      "content": "아주 맛있어요",
+      "keyword": "단체"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> groupedData =
+        processFamousRestaurantData(famousRestaurantData);
+
     return CustomScrollView(
       slivers: [
         SliverPadding(
@@ -92,7 +141,7 @@ class Restaurant extends StatelessWidget {
                 height: 8,
               ),
               SizedBox(
-                height: 250, // 고정된 가로 스크롤 영역 높이
+                height: 224, // 고정된 가로 스크롤 영역 높이
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: cardData.length,
@@ -167,21 +216,26 @@ class Restaurant extends StatelessWidget {
                 height: 8,
               ),
               SizedBox(
-                height: 250, // 고정된 가로 스크롤 영역 높이
+                height: 254, // 고정된 가로 스크롤 영역 높이
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: cardData.length,
+                  itemCount: groupedData.length,
                   itemBuilder: (context, index) {
-                    final item = cardData[index];
+                    final item = groupedData[index];
                     return Padding(
-                      padding: EdgeInsets.only(
-                        left: index == 0 ? 0 : 4, // 첫 번째 카드의 왼쪽 간격 없음
-                        right: index == cardData.length - 1
-                            ? 0
-                            : 4, // 마지막 카드의 오른쪽 간격 없음
-                      ),
-                      //child:
-                    );
+                        padding: EdgeInsets.only(
+                          left: index == 0 ? 0 : 4, // 첫 번째 카드의 왼쪽 간격 없음
+                          right: index == cardData.length - 1
+                              ? 0
+                              : 4, // 마지막 카드의 오른쪽 간격 없음
+                        ),
+                        child: FamousRestaurantCard(
+                          restaurant: item["restaurant"]!,
+                          imgList: item["imgList"],
+                          userName: item["userName"]!,
+                          content: item["content"]!,
+                          keyword: item["keyword"]!,
+                        ));
                   },
                 ),
               ),
@@ -272,7 +326,7 @@ class NavigateButton extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Container(
+            SizedBox(
               width: 156,
               child: Text(
                 text,
@@ -286,6 +340,219 @@ class NavigateButton extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+List<Map<String, dynamic>> processFamousRestaurantData(
+    List<Map<String, String>> data) {
+  Map<String, Map<String, dynamic>> groupedData = {};
+
+  for (var item in data) {
+    String uniqueKey =
+        "${item['restaurant']}_${item['userName']}_${item['content']}_${item['keyword']}";
+
+    if (!groupedData.containsKey(uniqueKey)) {
+      groupedData[uniqueKey] = {
+        "restaurant": item["restaurant"],
+        "userName": item["userName"],
+        "content": item["content"],
+        "keyword": item["keyword"],
+        "imgList": <String?>[item["img"]],
+      };
+    } else {
+      groupedData[uniqueKey]!["imgList"].add(item["img"]);
+    }
+  }
+
+  // Map의 값을 리스트로 변환
+  return groupedData.values.toList();
+}
+
+class FamousRestaurantCard extends StatefulWidget {
+  final String restaurant;
+  final List<String?> imgList;
+  final String userName;
+  final String content;
+  final String keyword;
+
+  const FamousRestaurantCard({
+    required this.restaurant,
+    required this.imgList,
+    required this.userName,
+    required this.content,
+    required this.keyword,
+  });
+
+  @override
+  State<FamousRestaurantCard> createState() => _FamousRestaurantCardState();
+}
+
+class _FamousRestaurantCardState extends State<FamousRestaurantCard> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      // `round()`를 호출하여 정확한 페이지 값을 가져옵니다.
+      final page = _pageController.page?.round() ?? 0;
+      if (_currentPage != page) {
+        setState(() {
+          _currentPage = page;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 164, // 카드 너비
+      height: 254, // 카드 높이
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+        border: Border.all(
+          color: Color.fromRGBO(0, 0, 0, 0.1),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(alignment: Alignment.bottomCenter, children: [
+            SizedBox(
+              width: 164,
+              height: 164,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: widget.imgList.length,
+                itemBuilder: (context, index) {
+                  final img = widget.imgList[index];
+                  return img != null && img.isNotEmpty
+                      ? Image.asset(
+                          img,
+                          width: 164,
+                          height: 164,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          width: 164,
+                          height: 164,
+                          color: Colors.grey[200],
+                          child: Center(
+                            child: Text(
+                              "No Image",
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
+                },
+              ),
+            ),
+            Positioned(
+              bottom: 8,
+              child: AnimatedSmoothIndicator(
+                activeIndex: _currentPage,
+                count: widget.imgList.length,
+                effect: const ExpandingDotsEffect(
+                  activeDotColor: Colors.white,
+                  dotColor: Color.fromRGBO(255, 255, 255, 0.8),
+                  dotWidth: 4.0,
+                  dotHeight: 4,
+                  expansionFactor: 2.5, // 활성화된 점의 크기 확장 비율
+                  spacing: 4.0,
+                ),
+              ),
+            ),
+          ]),
+          Container(
+            height: 88,
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 텍스트 내용
+                Text(
+                  widget.content,
+                  maxLines: 2, // 텍스트 줄 수 제한
+                  overflow: TextOverflow.ellipsis, // 텍스트 초과 시 처리
+                  style: TextStyle(
+                    fontSize: 12,
+                    height: 16 / 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8),
+                // 키워드
+                Container(
+                  width: 45,
+                  height: 20,
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(0, 0, 0, 0.05),
+                    border: Border.all(
+                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.keyword,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                        height: 16 / 12,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 6),
+                // 사용자 정보 (아바타 + 이름)
+                Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      // 이름이 길 경우 대응
+                      child: Text(
+                        widget.userName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          height: 16 / 12,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
