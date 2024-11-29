@@ -1,31 +1,35 @@
-// 주석 1차 작성 완료 (11.23)
+// (전체적으로 변동 가능성 존재)
+// json 맛집 개수만큼 동적으로 뿌리게 제작
+// 반복되는 위젯 -> list로 작업
+// 같은 화면으로 넘어가게 변경 (백엔드 협의 후)
 
 // 기본 라이브러리
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// 화면 이동 dart
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/Food_ui/food_ration_ui.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/Food_ui/good_food_ui.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/Food_ui/other_good_food_ui.dart';
+// 음식 관련 화면 이동 dart
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/Food_ui/good_food_ui.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/Food_ui/other_good_food_ui.dart';
 
-// 화면 이동 dart
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/Tip_ui/freshman_tip.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/Tip_ui/timetable_tip.dart';
+// 음식 관련 리뷰 조회 dart
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/Food_ui/food_ration_ui.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/component/foodinformation.dart';
+
+// 신입생 팁 관련 화면 이동 dart
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/Tip_ui/freshman_tip.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/Tip_ui/timetable_tip.dart';
+
+// util - 변수 및 폰트 지정 위한 dart
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/theme.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/variable.dart';
 
 // component
-import 'package:project_kksc_gachon_gil_project_error_complete/component/foodinformation.dart';
-
-// 변수 및 폰트 지정 위한 dart
-import 'package:project_kksc_gachon_gil_project_error_complete/utils/variable.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/utils/theme.dart';
-// 변동 가능성 존재!!
 
 void main() {
   runApp(
     ProviderScope(
-      child: MyHomePageUI(),
-    ),
+          child: MyHomePageUI(),
+      ),
     // ProviderScope는 제거할 예정
   );
 
@@ -39,7 +43,7 @@ class MyHomePageUI extends StatefulWidget {
 }
 
 class _MyHomePageUIState extends State<MyHomePageUI> {
-
+  /*
   static const customSwatch = MaterialColor(
     0xFFFF5252,
     <int, Color>{
@@ -55,11 +59,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
       900: Color(0xFFB71C1C),
     },
   );
-  // 제거 예정
-
-  // json 맛집 개수만큼 동적으로 뿌리게 제작
-  // 반복되는 위젯 -> list로 작업
-  // 같은 화면으로 넘어가게 변경 (백엔드 협의 후)
+  */
 
   // 메인 화면 (TitleText0) + 재학생의 꿀팁 위젯으로 넘어가는 부분 (TitleText1, iconStudent)
   Widget PartMain(String TitleText0, String TitleText1, String IconStudent) {
@@ -292,7 +292,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                       // 시간표 (SubTitleText2) + 텍스트 스타일 (폰트) 지정하기
                       child: Center(
                         child: Text(
-                          SubTitleText2,
+                           SubTitleText2,
                           style: TextStyle4,
                         ),
                       ),
@@ -330,10 +330,10 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
       onTap: () {
         print("_partTimetable");
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TimeTableTipUI(),
-            )
+          context,
+          MaterialPageRoute(
+            builder: (context) => TimeTableTipUI(),
+          )
         );
       },
     );
@@ -351,7 +351,8 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
           width: 60,
           // 왼쪽 아이콘 (iconPin)
           child: Image.asset(
-            IconPin,
+
+              IconPin,
           ),
           /*
           decoration: BoxDecoration(
@@ -565,37 +566,45 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                       print("한국어");
                       isLanguage = true;
                       print(isLanguage);
+                      // 1. TitleText를 기준으로 쓰고 있어서 거기의 모든 요소를 TitleTextKor로 바꿈
+                      // 동적으로 할 수 있도록 하는거도 해야함
                       for (int i = 0; i < 9; i++) {
                         TitleText[i] = TitleTextKor[i];
                       }
+
+                      // 2. SubTitleText를 기준으로 쓰고 있어서 거기의 모든 요소를 SubTitleTextKor로 바꿈
+                      // 동적으로 할 수 있도록 하는거도 해야함
                       for (int i = 0; i < 8; i++) {
-                        SubTitleText[i] = SubTitleTextKor[i];
+                        subTitleText[i] = subTitleTextKor[i];
                       }
+
+                      // 3. SubTitleText를 기준으로 쓰고 있어서 거기의 모든 요소를 SubTitleTextKor로 바꿈
+                      // 동적으로 할 수 있도록 하는거도 해야함
                       for (int i = 0; i < 3; i++) {
-                        ReviewerName[i] = ReviewerNameKor[i];
+                        reviewerName[i] = reviewerNameKor[i];
                       }
+
                       for (int i = 0; i < 3; i++) {
-                        ReviewerText[i] = ReviewerTextKor[i];
+                        ReviewerText[i] = reviewerTextKor[i];
                       }
                     }
                     if(_selectedValue == _valueList[1]) {
-                      print("영어");
                       isLanguage = false;
                       print(isLanguage);
                       for (int i = 0; i < 9; i++) {
                         TitleText[i] = TitleTextEng[i];
                       }
                       for (int i = 0; i < 8; i++) {
-                        SubTitleText[i] = SubTitleTextEng[i];
+                        subTitleText[i] = subTitleTextEng[i];
                       }
                       for (int i = 0; i < 3; i++) {
-                        ReviewerName[i] = ReviewerNameEng[i];
+                        reviewerName[i] = reviewerNameEng[i];
                       }
                       for (int i = 0; i < 3; i++) {
-                        ReviewerText[i] = ReviewerTextEng[i];
+                        ReviewerText[i] = reviewerTextEng[i];
                       }
                     }
-                  }
+                    }
                   );
                 },
               ),
@@ -606,10 +615,9 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
           ),
 
           // 메인 화면 (TitleText[0])
-          // TextStyleMain8
-          // 재학생의 꿀팁 (TitleText[1], iconStudent)
+          // TextStyleMain8subTitleText/ 재학생의 꿀팁 (TitleText[1], iconStudent)
           // TextStyleMain7
-          PartMain(TitleText[0], TitleText[1], IconStudent),
+          PartMain(TitleText[0], TitleText[1], iconStudent),
 
           // 가천대 학생들을 위한 꿀팁 (TitleText[2])
           // TextStyleMain7
@@ -633,7 +641,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
           // TextStyle4
           // 신입생들을 위한 조언과 팁 (SubTitleText[1])
           // TextStyleSub4
-          PartFreshman(TitleText[3], SubTitleText[0], SubTitleText[1], IconBell),
+          PartFreshman(TitleText[3], subTitleText[0], subTitleText[1], iconBell),
           Divider(
             height: 1,
             color: Colors.grey[40],
@@ -647,17 +655,15 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
           // TextStyle4
           // 시간표 짜는 방법 소개 (SubTitleText[3])
           // TextStyleSub4
-          PartTimetable(TitleText[4], SubTitleText[2], SubTitleText[3], IconMegaphone),
+          PartTimetable(TitleText[4], subTitleText[2], subTitleText[3], iconMegaphone),
           Divider(
               color: Colors.grey[40],
               thickness: 1.0
           ),
           SizedBox(
             height: 70,
-            width: 70,
+            width: 70,  // 학교 근처 맛집 (TitleText[5])
           ),
-
-          // 학교 근처 맛집 (TitleText[5])
           // TextStyleMain7
           Padding(
             padding: EdgeInsets.all(20.0),
@@ -673,8 +679,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
           ),
 
           // 왼쪽 아이콘 (iconPin)
-          // 맛집 이름 (TitleText[6])
-          // TextStyleMain7
+          // 맛집 이름 (subTitleText[6])
           // 평점 4.5 (SubTitleText[4])
           // TextStyleSub5 (회색)
           // 리뷰 100개 (SubTitleText[6])
@@ -688,10 +693,10 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                   // 왼쪽 아이콘 (iconPin)
                   // 맛집 이름 (TitleText[6])
                   // 평점 4.5 (SubTitleText[4])
-                  PartFoodplace(TitleText[6], SubTitleText[4], IconPin),
+                  PartFoodplace(TitleText[6], subTitleText[4], iconPin),
                   // 리뷰 100개 (SubTitleText[6])
                   Text(
-                    SubTitleText[6],
+                    subTitleText[6],
                     style: TextStyleMain6,
                     textAlign: TextAlign.end,
                     // 폰트 위해 텍스트 스타일 변수 지정 예정
@@ -710,13 +715,12 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
             },
           ),
           Divider(
-              color: Colors.grey[40],
-              thickness: 1.0
+            color: Colors.grey[40],
+            thickness: 1.0,
           ),
-
           // 왼쪽 아이콘 (iconMegaphone)
           // 또 다른 맛집 (TitleText[7])
-          // 평점 4.0 (SubTitleText[5])
+          // 평점 4.0 (SubsubTitleText)
           // 리뷰 80개 (SubTitleText[7])
           InkWell(
             child: Padding(
@@ -727,10 +731,10 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                   // 왼쪽 아이콘 (iconPizza)
                   // 또 다른 맛집 (TitleText[7])
                   // 평점 4.0 (SubTitleText[5])
-                  PartOtherFoodPlace(TitleText[7], SubTitleText[5], IconPizza),
+                  PartOtherFoodPlace(TitleText[7], subTitleText[5], iconPizza),
                   // 리뷰 80개 부분 (SubTitleText[7])
                   Text(
-                    SubTitleText[7],
+                    subTitleText[7],
                     style: TextStyleMain6,
                     textAlign: TextAlign.end,
                     // 폰트 위해 텍스트 스타일 변수 지정 예정
@@ -744,7 +748,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OtherFoodUI(),
+                    builder: (context) => OtherFoodUI(),
                 ),
               );
             },
@@ -789,7 +793,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                   // food_ration_ui.dart로 넘어감 (FoodRationUI)
                   // 추후 새로 구현 예정 (팁 화면 구현한거 보면서 각자 해당하는 화면으로 이동 예정)
                   InkWell(
-                    child: FoodInformation(ReviewerName[0], ReviewerText[0], 3.0, ImageURL),
+                    child: FoodInformation(reviewerName[0], ReviewerText[0], 3.0, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -800,7 +804,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                     },
                   ),
                   InkWell(
-                    child: FoodInformation(ReviewerName[1], ReviewerText[1], 2.5, ImageURL),
+                    child: FoodInformation(reviewerName[1], ReviewerText[1], 2.5, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -811,7 +815,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                     },
                   ),
                   InkWell(
-                    child: FoodInformation(ReviewerName[2], ReviewerText[2], 1.5, ImageURL),
+                    child: FoodInformation(reviewerName[2], ReviewerText[2], 1.5, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -822,7 +826,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                     },
                   ),
                   InkWell(
-                    child: FoodInformation(ReviewerName[0], ReviewerText[0], 3.0, ImageURL),
+                    child: FoodInformation(reviewerName[0], ReviewerText[0], 3.0, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -833,7 +837,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                     },
                   ),
                   InkWell(
-                    child: FoodInformation(ReviewerName[1], ReviewerText[1], 2.5, ImageURL),
+                    child: FoodInformation(reviewerName[1], ReviewerText[1], 2.5, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -844,7 +848,7 @@ class _MyHomePageUIState extends State<MyHomePageUI> {
                     },
                   ),
                   InkWell(
-                    child: FoodInformation(ReviewerName[2], ReviewerText[2], 1.5, ImageURL),
+                    child: FoodInformation(reviewerName[2], ReviewerText[2], 1.5, ImageURL),
                     onTap: () {
                       Navigator.push(
                         context,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/reference_ui/login_ui/login_page.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/screen/ui/main_ui/main_ui.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/component/appbar.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/main_ui/main_ui.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/theme.dart';
 
-import 'package:project_kksc_gachon_gil_project_error_complete/utils/variable.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/utils/theme.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/variable.dart';
+
 // 변동 가능성 존재!!
 
 void main() {
@@ -32,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // BottomNavigationBar 구현 코드
   /*
   int currentIndex = 0;
   // final screens와 함께 쓰며 기본 화면을 MyHomePageUI로 가도록 함
@@ -50,56 +52,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // api 설정용 - 구현 필요
+    /*
     // final restApiService = RestApiService();
     // Future<Album>? _album;
     // Future<List<Album>>? _albumList;
     // bool _getData = false;
+    */
 
     return Scaffold(
       // 가천대 로고 지정 + 클릭 시 첫번째 페이지까지 이전 페이지로 이동
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0, // 뭐하는거지
-        // Incorrect use of ParentDataWidget.이라는 오류 여기서 나는거임
-        title: Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.popUntil(
-                      context, (route) => route.isFirst
-                  ); // 첫번째 페이지까지 이전 페이지로 이동
-                },
-                // 가천대 로고 지정
-                child: Image(
-                  image: AssetImage(ImageURL_AppBar),
-                  // 가천대 로고 지정
-                  // 사이즈 안맞아서 변수로 바꾼 다음 이미지 링크도 전환 예정
-                  width: 100,
-                  height: 100,
-                  // fit: BoxFit.cover,
-                  // 이미지 또는 위젯을 컨테이너에 비율을 유지한 채로 잘 맞게 채우도록 조정할 때 사용하는 BoxFit 열거형 값으로 했으나 변경
-                ),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ),
-                        );
-                      },
-                      icon: Icon(Icons.account_circle)
-                  ),
-                ],
-              ),
-            ],
+      // 따로 위젯으로 구현해서 어느 페이지나 접근 가능하게 함
+      appBar: CustomAppBar(
+        /*
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              print('Settings clicked');
+            },
           ),
-        ),
+        ],
+        */
+        backgroundColor: Colors.blue,
       ),
 
       // 왼쪽 위 세줄 있는거
@@ -153,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // 버전
             ListTile(
+              // 아이콘 피그마 양식 확인 필요
               leading: Icon(
                 Icons.stay_current_portrait,
                 color: Colors.grey[850],

@@ -1,13 +1,6 @@
-/*
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:project_kksc_gachon_gil_project_error_complete/ui/login_ui/login_page.dart';
-// import 'package:project_individual_flutter_instagram_app_project/src/components/image_data.dart';
-// import 'package:project_individual_flutter_instagram_app_project/src/components/avatar_widget.dart';
-// import 'package:project_kksc_flutter_login_ui_project/ui/my_page/user_card.dart';
-
-// import 'package:project_individual_flutter_instagram_app_project/src/app.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/reference_ui/login_ui/login_page.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/main_ui/main_ui.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -68,16 +61,11 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 ),
               ),
 
-
-
-
               /*
               Image(
                   image: image
               ),
               */
-
-
 
               SizedBox(
                 width: 10,
@@ -85,7 +73,6 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text(
                     'Student Name',
                     style: TextStyle(
@@ -200,14 +187,15 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
               padding: EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      // Navigator로 뒤로 가게 할 예정
-                    },
-
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                      ),
+                    ],
                   ),
                   Text(
                     'My Page',
@@ -411,4 +399,3 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
     );
   }
 }
-*/
