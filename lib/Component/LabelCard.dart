@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kksc_app_fe/Screen/Restaurant/Restaurant.dart';
 
 class LabelCard extends StatelessWidget {
   final String? label;
@@ -12,8 +13,8 @@ class LabelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 164, // 카드 너비
-      height: 224, // 카드 높이
+      width: 164, //카드 너비
+      height: 224, //카드 높이
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
@@ -60,18 +61,20 @@ class LabelCard extends StatelessWidget {
                   top: 0,
                   left: 0,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 4, horizontal: 8), // 텍스트 양쪽 간격
+                    width: 31,
+                    height: 24,
+                    padding: const EdgeInsets.all(4),
                     decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        bottomRight: Radius.circular(6),
-                      ),
-                      color: Color.fromRGBO(0, 0, 0, 0.5),
-                    ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                          bottomRight: Radius.circular(6),
+                        ),
+                        // 기존 색 : color: Color.fromRGBO(0, 0, 0, 0.1), -> label이 잘 안 보임
+                        color: Color.fromRGBO(0, 0, 0, 0.5)),
                     child: Text(
                       label!,
                       style: const TextStyle(
+                        //label text 잘 안 보여서 색 변경
                         color: Colors.white,
                         fontSize: 12,
                         height: 16 / 12,
