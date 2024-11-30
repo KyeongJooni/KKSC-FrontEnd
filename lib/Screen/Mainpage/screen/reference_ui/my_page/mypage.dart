@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/reference_ui/login_ui/login_page.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/ui/main_ui/main_ui.dart';
+import 'package:kksc_app_fe/Screen/reference_ui/login_ui/login_page.dart';
+import 'package:kksc_app_fe/Screen/ui/main_ui/main_ui.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
