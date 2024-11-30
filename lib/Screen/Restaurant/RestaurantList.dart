@@ -15,29 +15,13 @@ class RestaurantView extends StatelessWidget {
           ),
           backgroundColor: Colors.blue,
         ),
-        body: RestaurantScreen(),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '홈',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: '검색',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: '프로필',
-            ),
-          ],
-        ),
+        body: RestaurantListScreen(),
       ),
     );
   }
 }
 
-class RestaurantScreen extends StatelessWidget {
+class RestaurantListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

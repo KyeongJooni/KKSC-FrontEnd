@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Notice extends StatefulWidget {
-  const Notice({super.key});
+class NoticeScreen extends StatefulWidget {
+  const NoticeScreen({super.key});
 
   @override
-  State<Notice> createState() => _NoticeState();
+  State<NoticeScreen> createState() => _NoticeScreenState();
 }
 
-class _NoticeState extends State<Notice> {
+class _NoticeScreenState extends State<NoticeScreen> {
   String selectedDepartment = '경영학부'; // 초기 값: 경영학부
 
   @override

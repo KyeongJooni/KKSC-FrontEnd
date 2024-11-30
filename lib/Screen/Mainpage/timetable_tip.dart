@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/component/appbar.dart';
 
 class TimeTableTipUI extends StatelessWidget {
   const TimeTableTipUI({super.key});
@@ -9,7 +8,6 @@ class TimeTableTipUI extends StatelessWidget {
     String ImageURL_AppBar = 'assets/images/icon/gachon_logo.png';
     return Scaffold(
       // 첫번째 페이지까지 이전 페이지로 이동
-      appBar: CustomAppBar(),
       // TimeTableTipUI
       body: Container(
         child: Text(

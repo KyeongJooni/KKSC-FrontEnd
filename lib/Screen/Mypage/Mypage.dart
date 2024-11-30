@@ -23,21 +23,6 @@ class MyPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white, // 바탕화면 색깔 설정
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF4285F4), // 상단 바 색상
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/gachon_logo.jpg', fit: BoxFit.contain), // 로고 추가
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              // 메뉴 버튼 동작
-            },
-          ),
-        ],
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -166,31 +151,6 @@ class MyPageScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF4285F4), // 상단 바와 동일한 색상 설정
-        selectedItemColor: Colors.white, // 선택된 아이템 색상
-        unselectedItemColor: Colors.white70, // 선택되지 않은 아이템 색상
-        currentIndex: 3,
-        type: BottomNavigationBarType.fixed, // 아이템 간 고정된 간격 유지
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lightbulb),
-            label: 'Ideas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant),
-            label: 'Food',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'My Page',
           ),
         ],
       ),

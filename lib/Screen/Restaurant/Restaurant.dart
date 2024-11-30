@@ -4,7 +4,7 @@ import 'package:kksc_app_fe/Screen/Restaurant/RestaurantList.dart';
 import 'package:kksc_app_fe/Component/LabelCard.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Restaurant extends StatelessWidget {
+class RestaurantScreen extends StatelessWidget {
   final List<Map<String, String>> cardData = [
     {
       "label": "한식",

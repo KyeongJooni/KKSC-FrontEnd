@@ -40,7 +40,7 @@ String VersionInnerText = '1.0.0';
 //                ㄴcontent: Text (Version)
 */
 
-// appbar.dart
+// TopAppbar.dart
 String ImageURL_AppBar = 'assets/img/icon/gachon_logo.png';
 // 사용 용도 :
 // 사용 장소
@@ -56,7 +56,7 @@ String ImageURL_AppBar = 'assets/img/icon/gachon_logo.png';
 
 // foodinformation.dart
 
-// main_ui.dart
+// Mainpage.dart
 var isLanguage = true;
 // true : 한국어
 // false : 영어
@@ -73,7 +73,7 @@ var isLanguage = true;
 //                ㄴif(_selectedValue == _valueList[0])
 */
 
-// main_ui.dart
+// Mainpage.dart
 List TitleText = [
   "메인 화면",
   /*
@@ -172,7 +172,7 @@ List TitleTextKor = [
 String foodPlaceNameKor = '맛집 이름';
 String otherFoodPlaceNameKor = '또 다른 맛집'; // shift + f6 -> or alt + f7
 
-// main_ui.dart
+// Mainpage.dart
 List subTitleText = [
   "신입생",
   /*
@@ -272,7 +272,7 @@ List subTitleTextKor = [
   "리뷰 : $otherReviewCount개",
 ];
 
-// main_ui.dart
+// Mainpage.dart
 List reviewerName = [
   newReviewerName,
   /*
@@ -320,7 +320,7 @@ String newReviewerNameKor = '맛집 리뷰어 1'; // 변수로 받아올 예정
 String newReviewerNameKor2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
 String newReviewerNameKor3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
 
-// main_ui.dart
+// Mainpage.dart
 List ReviewerText = [
   newReviewerText,
   /*
@@ -384,7 +384,7 @@ String newReviewerTextKor3 = "보통"; // 변수로 받아올 예정
 //                  - ReviewerText, reviewerTextKor
 */
 
-// main_ui.dart
+// Mainpage.dart
 List TitleTextEng = [
   "Main Screen",
   "Senior Tip",
@@ -400,7 +400,7 @@ List TitleTextEng = [
 String foodPlaceNameEng = 'Good Food Place Name';
 String otherFoodPlaceNameEng = 'Another Food Place Name';
 
-// main_ui.dart
+// Mainpage.dart
 List subTitleTextEng = [
   "Freshman",
   "Comments and Tips For Freshman",
@@ -412,7 +412,7 @@ List subTitleTextEng = [
   "review : $otherReviewCount",
 ];
 
-// main_ui.dart
+// Mainpage.dart
 List reviewerNameEng = [
   newReviewerNameEng,
   newReviewerNameEng2,
@@ -422,7 +422,7 @@ String newReviewerNameEng = 'Reviewer 1'; // 변수로 받아올 예정
 String newReviewerNameEng2 = 'Reviewer 2'; // 변수로 받아올 예정
 String newReviewerNameEng3 = 'Reviewer 3'; // 변수로 받아올 예정
 
-// main_ui.dart
+// Mainpage.dart
 List reviewerTextEng = [
   newReviewerTextEng,
   newReviewerTextEng2,
