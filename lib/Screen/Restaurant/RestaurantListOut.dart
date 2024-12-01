@@ -1,20 +1,16 @@
-import 'package:flutter/material.dart';
 
-class RestaurantView extends StatelessWidget {
+
+import 'package:flutter/material.dart';
+import 'package:kksc_app_fe/Component/TopAppbar.dart';
+
+class RestaurantListOut extends StatelessWidget {
+  void _onlogopressed(){}
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('가천대학교'),
-              Icon(Icons.menu), // 메뉴 아이콘 추가
-            ],
-          ),
-          backgroundColor: Colors.blue,
-        ),
+        appBar: GCG_TopAppbar(onLogoPressed: _onlogopressed),
         body: RestaurantListScreen(),
       ),
     );
@@ -30,17 +26,17 @@ class RestaurantListScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '내부 식당',
+            '학교 밖 맛집',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              RestaurantButton(name: '제순식당'),
-              RestaurantButton(name: '치미찌미'),
-              RestaurantButton(name: '신역혼점'),
-              RestaurantButton(name: '차이니스트'),
+              RestaurantButton(name: '전주식당'),
+              RestaurantButton(name: '황궁 중화요리'),
+              RestaurantButton(name: '화리화리'),
+              RestaurantButton(name: '일촌'),
             ],
           ),
           SizedBox(height: 20),

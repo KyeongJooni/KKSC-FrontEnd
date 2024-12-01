@@ -1,8 +1,10 @@
 import 'package:kksc_app_fe/Component/ReviewCard.dart';
 import 'package:flutter/material.dart';
-import 'package:kksc_app_fe/Screen/Restaurant/RestaurantList.dart';
+import 'package:kksc_app_fe/Screen/Restaurant/RestaurantListIn.dart';
+import 'package:kksc_app_fe/Screen/Restaurant/RestaurantListOut.dart';
 import 'package:kksc_app_fe/Component/LabelCard.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 
 class RestaurantScreen extends StatelessWidget {
   final List<Map<String, String>> cardData = [
@@ -323,12 +325,19 @@ class NavigateButton extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return RestaurantView();
+                return RestaurantView(); // 기존 내부 식당 화면
               },
             ),
           );
-        } else {
-          print("학교 외부 식당");
+        } else if (text == "외부 맛집") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return RestaurantListOut(); // 외부 식당 화면
+              },
+            ),
+          );
         }
       },
       child: Container(
