@@ -221,12 +221,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
       // modified by seungho v0.1beta, 추후 꿀팁 페이지에서 구현 후 연동 부탁, 일단 주석처리.
       onTap: () {
         print("_partFreshman");
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => FreshmanTipUI(),
-        //   ),
-        // );
+
       },
     );
   }
@@ -321,12 +316,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
       // modified by seungho v0.1beta, 추후 꿀팁 페이지에서 구현 후 연동 부탁, 일단 주석처리.
       onTap: () {
         print("_partTimetable");
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => TimeTableTipUI(),
-        //   )
-        // );
+
       },
     );
   }
@@ -464,77 +454,6 @@ class _MainpageScreenState extends State<MainpageScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /*
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      // 상단 Language
-                      title: Text(
-                        "Language",
-                      ),
-                      // 언어 선택 유도 메시지
-                      content: Text(
-                          "Choose Language",
-                      ),
-                      actions: [
-                        // 한 -> 영 버튼
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              for (int i = 0; i < 9; i++) {
-                                TitleText[i] = TitleTextEng[i];
-                              }
-                              for (int i = 0; i < 8; i++) {
-                                SubTitleText[i] = SubTitleTextEng[i];
-                              }
-                              for (int i = 0; i < 3; i++) {
-                                ReviewerName[i] = ReviewerNameEng[i];
-                              }
-                              for (int i = 0; i < 3; i++) {
-                                ReviewerText[i] = ReviewerTextEng[i];
-                              }
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('English'),
-                        ),
-
-                        // 영 -> 한 버튼
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              for (int i = 0; i < 9; i++) {
-                                TitleText[i] = TitleTextKor[i];
-                              }
-                              for (int i = 0; i < 8; i++) {
-                                SubTitleText[i] = SubTitleTextKor[i];
-                              }
-                              for (int i = 0; i < 3; i++) {
-                                ReviewerName[i] = ReviewerNameKor[i];
-                              }
-                              for (int i = 0; i < 3; i++) {
-                                ReviewerText[i] = ReviewerTextKor[i];
-                              }
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Korean'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              // Change Language (TextStyle7)
-              child: Text(
-                "Change Language",
-                style: TextStyle7,
-              ),
-            ),
-            */
 
             // 언어 선택을 위한 DropdownButton (ElevatedButton에서 변경)
             Row(
@@ -700,12 +619,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
               // timetable_tip.dart로 넘어감 -> 추후 새로 구현 예정
               // modified by seungho v0.1beta, 추후 맛집 페이지에서 구현 후 연동 부탁, 일단 주석처리.
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => FoodUI(),
-                //   ),
-                // );
+
               },
             ),
             Divider(
@@ -740,12 +654,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
               // modified by seungho v0.1beta, 추후 꿀팁 페이지에서 구현 후 연동 부탁, 일단 주석처리.
               onTap: () {
                 print("_partOtherFoodPlace");
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => OtherFoodUI(),
-                //   ),
-                // );
+
               },
             ),
             Divider(
@@ -791,67 +700,37 @@ class _MainpageScreenState extends State<MainpageScreen> {
                     InkWell(
                       child: ReviewCard(user: reviewerName[0], content: ReviewerText[0], starCount: "3"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     InkWell(
                       child: ReviewCard(user: reviewerName[1], content: ReviewerText[1], starCount: "2"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     InkWell(
                       child: ReviewCard(user: reviewerName[2], content: ReviewerText[2], starCount: "1"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     InkWell(
                       child: ReviewCard(user: reviewerName[0], content: ReviewerText[0], starCount: "5"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     InkWell(
                       child: ReviewCard(user: reviewerName[1], content: ReviewerText[1], starCount: "4"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     InkWell(
                       child: ReviewCard(user: reviewerName[2], content: ReviewerText[2], starCount: "1"),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FoodRationUI(),
-                        //   ),
-                        // );
+
                       },
                     ),
                     /*
