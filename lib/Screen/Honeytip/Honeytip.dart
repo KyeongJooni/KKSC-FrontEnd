@@ -15,7 +15,6 @@ class HoneytipApp extends StatelessWidget {
     );
   }
 }
-
 class HoneytipScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -82,28 +81,32 @@ class HoneytipScreen extends StatelessWidget {
                     title: Text(
                       'Exclusive Insider Tips',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
                       'Secret shortcuts revealed',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 40),
                   Text(
                     '새내기들을 위한 팁',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(height: 8),
                   ListTile(
                     leading: Image.asset(
-                      'assets/school.png',
-                      width: 35,
-                      height: 35,
+                      'assets/img/school.png',
+                      width: 32,
+                      height: 32,
                     ),
-                    title: Text('학교 길안내'),
+                    title: Text('학교 길안내',
+                      style: TextStyle(fontSize: 14),
+                    ),
                     subtitle: Text(
                       '복정동 가는 지름길',
                       style: TextStyle(color: Colors.grey),
@@ -112,11 +115,13 @@ class HoneytipScreen extends StatelessWidget {
                   Divider(color: Colors.grey),
                   ListTile(
                     leading: Image.asset(
-                      'assets/bulb.png',
-                      width: 37,
-                      height: 37,
+                      'assets/img/bulb.png',
+                      width: 32,
+                      height: 32,
                     ),
-                    title: Text('공부 팁'),
+                    title: Text('공부 팁',
+                      style: TextStyle(fontSize: 14),
+                    ),
                     subtitle: Text(
                       '학교에서 공부하기 좋은 곳',
                       style: TextStyle(color: Colors.grey),
