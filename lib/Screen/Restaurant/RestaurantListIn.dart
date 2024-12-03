@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kksc_app_fe/Component/TopAppbar.dart';
+import 'package:kksc_app_fe/Component/BottomNavbar.dart';
 
 class RestaurantView extends StatelessWidget {
-  void _onlogopressed(){}
+  void _onlogopressed() {}
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,22 @@ class RestaurantListScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RestaurantButton(name: '제순식당'),
-              RestaurantButton(name: '치미찌미'),
-              RestaurantButton(name: '신역혼점'),
-              RestaurantButton(name: '차이니스트'),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RestaurantButton(name: '제순식당'),
+                SizedBox(width: 10),
+                RestaurantButton(name: '치미치미'),
+                SizedBox(width: 10),
+                RestaurantButton(name: '신역혼점'),
+                SizedBox(width: 10),
+                RestaurantButton(name: '차이니스트'),
+                SizedBox(width: 10),
+                RestaurantButton(name: '신의한컵'),
+              ],
+            ),
           ),
           SizedBox(height: 20),
           Text(
@@ -64,19 +73,21 @@ class RestaurantListScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
-          Text('비빔밥, 된장찌개, 불고기'),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: ImagePlaceholder(name: '메뉴1'),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: ImagePlaceholder(name: '메뉴2'),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                ImagePlaceholder(name: '메뉴1'),
+                SizedBox(width: 10),
+                ImagePlaceholder(name: '메뉴2'),
+                SizedBox(width: 10),
+                ImagePlaceholder(name: '메뉴3'),
+                SizedBox(width: 10),
+                ImagePlaceholder(name: '메뉴4'),
+                SizedBox(width: 10),
+                ImagePlaceholder(name: '메뉴5'),
+              ],
+            ),
           ),
         ],
       ),
@@ -90,16 +101,29 @@ class RestaurantButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.grey[300],
-          radius: 30,
-          child: Icon(Icons.restaurant, color: Colors.white), // 아이콘 추가
-        ),
-        SizedBox(height: 5),
-        Text(name, style: TextStyle(fontSize: 14)),
-      ],
+    return Container(
+      width: 80, // 버튼 크기 지정
+      child: Column(
+        children: [
+          Transform.translate(
+            offset: Offset(0, 0), // 동그라미 버튼을 위로 10px 올리기
+            child: CircleAvatar(
+              backgroundColor: Colors.grey[300], // 모든 버튼 동일 배경색
+              radius: 30,
+              child: Icon(
+                Icons.restaurant, // 아이콘도 동일하게 설정
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            name,
+            style: TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -111,7 +135,8 @@ class ImagePlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 150,
+      width: 150, // 메뉴 이미지 너비 추가
       color: Colors.grey[200],
       child: Center(child: Text('$name 사진')),
     );
