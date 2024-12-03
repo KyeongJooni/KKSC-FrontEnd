@@ -38,7 +38,6 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_rating_bar: ^4.0.1
   flutter_riverpod: ^2.3.2
-  http:
 
 dev_dependencies:
   flutter_test:
