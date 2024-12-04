@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/kksc_app_fe.iml" filepath="$PROJECT_DIR$/kksc_app_fe.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/kksc_app_fe_android.iml" filepath="$PROJECT_DIR$/android/kksc_app_fe_android.iml" />
-    </modules>
-  </component>
-</project>
