@@ -13,7 +13,7 @@
 ## 개발 환경
 
 - Backend: Spring Boot 3.3.1
-- Frontend: Kotlin (안드로이드 앱)
+- Frontend: Flutter
 - Build Tool: Gradle Groovy 8.8
 - Java Version: Java 17
 - Packaging: Jar
