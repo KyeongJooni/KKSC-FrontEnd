@@ -6,6 +6,8 @@ import 'package:kksc_app_fe/Screen/Timetable/Timetable.dart';
 import 'package:kksc_app_fe/Screen/Honeytip/Honeytip.dart';
 import 'package:kksc_app_fe/Screen/Notice/Notice.dart';
 import 'package:kksc_app_fe/Screen/Restaurant/Restaurant.dart';
+import 'package:kksc_app_fe/util/color_theme.dart';
+import 'package:kksc_app_fe/util/text_styles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    TextTheme textTheme = createTextTheme(context, "Roboto", "Roboto");
+    MaterialTheme theme = MaterialTheme(textTheme);
+
     return MaterialApp(
+      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
       home: IndexScreen(),
     );
   }
