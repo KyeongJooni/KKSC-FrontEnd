@@ -82,8 +82,6 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
             ],
           ),
         ),
-        Divider(color: Colors.grey), // 섹션 구분선 추가
-
         // 두 번째 섹션
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -93,7 +91,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
               ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey[300],
-                  radius: 25,
+                  radius: 20,
                 ),
                 title: Text(
                   'Exclusive Insider Tips',
@@ -104,7 +102,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                 ),
                 subtitle: Text(
                   'Secret shortcuts revealed',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                  style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
                 ),
               ),
               SizedBox(height: 40),
@@ -115,7 +113,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
               SizedBox(height: 8),
               ListTile(
                 leading: Image.asset(
-                  'assets/img/school.png',
+                  'assets/img/icon/school.png',
                   width: 32,
                   height: 32,
                 ),
@@ -125,13 +123,13 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                 ),
                 subtitle: Text(
                   '복정동 가는 지름길',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Color(0xFF808080)),
                 ),
               ),
-              Divider(color: Colors.grey),
+              Divider(color: Color(0xFF808080)),
               ListTile(
                 leading: Image.asset(
-                  'assets/img/bulb.png',
+                  'assets/img/icon/bulb.png',
                   width: 32,
                   height: 32,
                 ),
@@ -141,10 +139,10 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                 ),
                 subtitle: Text(
                   '학교에서 공부하기 좋은 곳',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Color(0xFF808080)),
                 ),
               ),
-              Divider(color: Colors.grey),
+              Divider(color: Color(0xFF808080)),
             ],
           ),
         ),
