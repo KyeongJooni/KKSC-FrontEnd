@@ -6,13 +6,14 @@
 // 기본 라이브러리
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField2.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldandReviewText.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCard.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCardTest.dart';
 
 // component (foodinformation -> ReviewCard)
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCard.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCardTest.dart';
 
 // 음식 관련 화면 이동 dart
 
@@ -20,18 +21,13 @@ import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart'; // food_ration_ui -> Restaurant
 
 // 신입생 팁 관련 화면 이동 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Honeytip/Honeytip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Notice/Notice.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/RestaurantList.dart';
 
 // util - 변수 및 폰트 지정 위한 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/variable.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_model.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_services.dart';
 
 // component
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/color_theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosnt_value.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/text_styles.dart';
 
@@ -42,7 +38,6 @@ void main() {
     ),
     // ProviderScope는 제거할 예정
   );
-
 }
 
 class MainpageScreen extends StatefulWidget {
@@ -72,7 +67,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
   */
 
   // 메인 화면 (TitleText0) + 재학생의 꿀팁 위젯으로 넘어가는 부분 (TitleText1, iconStudent)
-  Widget PartMain(String TitleText0, TextTheme textTheme) {
+  Widget PartMain(String TitleText0, TextTheme textTheme, final colorTheme) {
     // 메인 화면 (TitleText0)
     return Column(
       children: [
@@ -90,7 +85,9 @@ class _MainpageScreenState extends State<MainpageScreen> {
               Text(
                 TitleText0,
                 // 폰트 위한 스타일 다시 지정 예정
-                style: textTheme.bodyMedium,
+                style: textTheme.headlineMedium?.copyWith( // bodyMedium 스타일을 기반으로 수정
+                  color: colorTheme.scrim, // 색상 변경
+                ),
               ),
             ],
           ),
@@ -115,54 +112,104 @@ class _MainpageScreenState extends State<MainpageScreen> {
     );
   }
 
-  Widget OtherPartCollector(String titleText, String subTitleText, String subTitleText2, IconData icon, Widget Function() widgetBuilder) {
-    return InkWell(
-      child: CommonColumnField2(
-        icon: icon,
-        title: titleText,
-        subtitle: subTitleText,
-        subtitle2: subTitleText2,
-      ),
-      // timetable_tip.dart로 넘어감 -> 추후 새로 구현 예정
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => widgetBuilder(),
+  Widget PartSummary() {
+    return Row(
+      children: [
+        for (int i = 0; i < 5; i++)
+          InkWell(
+            child: LabelCardTest(
+              name: "name",
+              text: "text",
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantScreen(),
+                ),
+              );
+            },
           ),
-        );
-      },
+      ],
     );
   }
 
-  Widget FoodPartCollector(String titleText, String subTitleText, String subTitleText2, IconData icon, Widget Function() widgetBuilder) {
-    return InkWell(
-      child: CommonColumnFieldandReviewText(
-        icon: icon,
-        title: titleText,
-        subtitle: subTitleText,
-        subtitle2: subTitleText2,
+  Widget PartSection(String titleText, IconData icon, TextTheme textTheme, final colorTheme) {
+    return Container(
+      width: 500,
+      height: 50,
+      decoration: BoxDecoration(
+        color: colorTheme.outlineVariant,
       ),
-      // timetable_tip.dart로 넘어감 -> 추후 새로 구현 예정
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => widgetBuilder(),
-          ),
-        );
-      },
+      child: Information(titleText, icon),
     );
   }
 
   // Declare the ScrollController
   ScrollController _scrollController = ScrollController();
 
+  /*
   final _valueList = [
     '한국어',
     'English',
   ];
   var _selectedValue = '한국어';
+  List<String> _starCount = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+  ];
+  */
+
+  final List<Map<String, String>> reviewData = [
+    {"user": "사용자1", "name": "전주식당", "content": "맛있는 음식이었어요", "starCount": "5"},
+    {"user": "사용자2", "name": "차이나타운", "content": "별로였어요", "starCount": "1"},
+    {"user": "사용자3", "name": "차이나타운", "content": "음 굿", "starCount": "3"},
+    {"user": "사용자4", "name": "엉터리분식", "content": "음 굿", "starCount": "3"},
+    {"user": "사용자5", "name": "엉터리분식", "content": "별로였어요", "starCount": "1"},
+  ];
+
+  // GET
+  List<CommandsModel> commendsModel = [];
+  getComments() {
+    GetApiServices().getCommentsModel().then((value) {
+      setState(() {
+        commendsModel = value!;
+      });
+    });
+  }
+  @override
+  void initState() {
+    getComments();
+    super.initState();
+  }
+
+  // POST
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  registerUser(String email, String password) async {
+    Uri url = Uri.parse("https://reqres.in/api/register");
+    var data = {
+      "email" : email,
+      "password" : password,
+    };
+
+    try {
+      var response = await http.post(url, body: data);
+      if(response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print(jsonData);
+      }
+      else {
+        var error = jsonDecode(response.body);
+        print("Unable to Register: ${error['error']}");
+      }
+    } catch (e) {
+      print("Error:$e");
+    }
+  }
 
   @override
   void dispose() {
@@ -173,32 +220,12 @@ class _MainpageScreenState extends State<MainpageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> cardData = [
-      {
-        "label": "한식",
-        "img": "assets/img/restrauntExample1.jpeg",
-        "name": "화리화리",
-        "text": "평점: 4.5"
-      },
-      {"label": "한식", "img": "", "name": "전주식당", "text": "평점: 4.7"},
-      {"label": "중식", "img": "", "name": "차이나타운", "text": "평점: 4.3"},
-      {"label": "분식", "img": "", "name": "엉터리분식", "text": "평점: 4.8"},
-    ];
-
-    final brightness = View.of(context).platformDispatcher.platformBrightness;
-    final colorTheme = Theme.of(context).colorScheme;
+    // final brightness = View.of(context).platformDispatcher.platformBrightness;
+    // MaterialTheme theme = MaterialTheme(textTheme);
 
     // 텍스트 테마 및 컬러 테마를 불러옴
+    final colorTheme = Theme.of(context).colorScheme;
     TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
-    MaterialTheme theme = MaterialTheme(textTheme);
-
-    List<String> _starCount = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-    ];
 
     return SingleChildScrollView(
       child: Column(
@@ -275,6 +302,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
           ),
           */
 
+          /*
           // 언어 선택을 위한 DropdownButton (ElevatedButton에서 변경)
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -347,110 +375,36 @@ class _MainpageScreenState extends State<MainpageScreen> {
               ),
             ],
           ),
+                  // 또 다른 맛집 (TitleText[7])
+        // 평점 4.0 (subTitleText[5])
+        // 리뷰 80개 (subTitleText[7])
+        // icon :
+        // TextStyle :
+        // color :
+        // 첫 학기 계획 세우기 (titleText[3])
+        // 신입생들을 위한 조언과 팁 (subTitleText[1])
+        // 신입생 (subTitleText[0])
+        // icon : / TextStyle : / color :
+        // 주석 잘 달아놓기!! 및 이름 변경!!
+        // OtherPartCollector(titleText[3], subTitleText[1], subTitleText[0], Icons.ice_skating, () => TimeTableTipUI()),
+
+        // 시간표 짜기 꿀팁 (titleText[4])
+        // 시간표 (subTitleText[2])
+        // 시간표 짜는 방법 소개 (subTitleText[3])
+        // icon : / TextStyle : / color :
+        // OtherPartCollector(titleText[4], subTitleText[3], subTitleText[2], Icons.ice_skating, () => HoneytipScreen()),
+
+        // 맛집 이름 (titleText[6])
+        // 평점 4.5 (subTitleText[4])
+        // 리뷰 100개 (subTitleText[6])
+        // icon :
+        // TextStyle :
+        // color :
+          */
 
           // 메인 화면 (titleText[0])
-          // icon :
-          // TextStyle :
-          // color :
-          PartMain(titleText[0], textTheme),
-
-          // 재학생의 꿀팁 (titleText1)
-          // icon :
-          // TextStyle :
-          // color :
-          Information(titleText[1], Icons.ac_unit),
-
-          // 가천대 학생들을 위한 꿀팁 (TitleText[2])
-          // icon :
-          // TextStyle :
-          // color :
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                Text(
-                  titleText[2],
-                  // 폰트 위해 텍스트 스타일 전환 예정
-                  style: textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-
-          // 첫 학기 계획 세우기 (titleText[3])
-          // 신입생들을 위한 조언과 팁 (subTitleText[1])
-          // 신입생 (subTitleText[0])
-          // icon :
-          // TextStyle :
-          // color :
-          OtherPartCollector(titleText[3], subTitleText[1], subTitleText[0], Icons.ice_skating, () => TimeTableTipUI()),
-          Divider(
-            height: 1,
-            color: Colors.grey[40],
-            thickness: 1.0,
-          ),
-
-          // 시간표 짜기 꿀팁 (titleText[4])
-          // 시간표 (subTitleText[2])
-          // 시간표 짜는 방법 소개 (subTitleText[3])
-          // icon :
-          // TextStyle :
-          // color :
-          OtherPartCollector(titleText[4], subTitleText[3], subTitleText[2], Icons.ice_skating, () => HoneytipScreen()),
-          Divider(
-              color: Colors.grey[40],
-              thickness: 1.0
-          ),
-          SizedBox(
-            height: 70,
-            width: 70,  // 학교 근처 맛집 (TitleText[5])
-          ),
-
-          // 학교 근처 맛집
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                Text(
-                  titleText[5],
-                  // 폰트 위해 텍스트 스타일 변수 지정 예정
-                  style: textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-
-          // 맛집 이름 (titleText[6])
-          // 평점 4.5 (subTitleText[4])
-          // 리뷰 100개 (subTitleText[6])
-          // icon :
-          // TextStyle :
-          // color :
-          FoodPartCollector(titleText[6], subTitleText[4], subTitleText[6], Icons.ice_skating, () => RestaurantScreen()),
-          Divider(
-            color: Colors.grey[40],
-            thickness: 1.0,
-          ),
-
-          // 또 다른 맛집 (TitleText[7])
-          // 평점 4.0 (subTitleText[5])
-          // 리뷰 80개 (subTitleText[7])
-          // icon :
-          // TextStyle :
-          // color :
-          FoodPartCollector(titleText[7], subTitleText[5], subTitleText[7], Icons.ice_skating, () => RestaurantScreen()),
-          Divider(
-              color: Colors.grey[40],
-              thickness: 1.0
-          ),
-
-          // 맛집 리뷰 부분은 가져와도 되고 맡게 되면 제작해봐도 될듯
-          // 맛집 리뷰 (TitleText[8])
-          PartMain(titleText[8], textTheme),
-          SizedBox(
-            width: 20,
-            height: 20,
-          ),
+          // icon : / TextStyle : / color :
+          PartMain(titleText[0], textTheme, colorTheme),
 
           // 맛집 리뷰어 (ReviewerName[0 ~ n]), 매우 만족 등 맛집에 대한 평가 (ReviewerText[0 ~ n]), 별점 등 뷰어 (3.0 등 double 매개변수 지정)
           Scrollbar(
@@ -460,25 +414,38 @@ class _MainpageScreenState extends State<MainpageScreen> {
               controller: _scrollController,
               // Attach the controller to the scrollable widget
               scrollDirection: Axis.horizontal,
+              // 최댓값 찾는 알고리즘
+              // 차댓값 찾는 알고리즘
+              // 최댓값 리뷰 개수 구하는 알고리즘
+              // 차댓값 리뷰 개수 구하는 알고리즘
               child: Row(
                 children: [
                   // food_ration_ui.dart로 넘어감 (FoodRationUI)
                   // 추후 새로 구현 예정 (팁 화면 구현한거 보면서 각자 해당하는 화면으로 이동 예정)
                   for(int i = 0; i < 5; i++)
-                    InkWell(
-                      child: ReviewCard(
-                        user: reviewerName[i],
-                        content: reviewerText[i],
-                        starCount: _starCount[i],
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RestaurantScreen(),
+                    Row(
+                      children: [
+                        InkWell(
+                          child: ReviewCardTest(
+                            user: reviewData[i]["user"]!,
+                            content: reviewData[i]["content"]!,
+                            starCount: reviewData[i]["starCount"]!,
+                            restaurantName: reviewData[i]["name"]!,
                           ),
-                        );
-                      },
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RestaurantScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                        ),
+                      ],
                     ),
                   /*
                   ProviderScope(
@@ -489,10 +456,112 @@ class _MainpageScreenState extends State<MainpageScreen> {
               ),
             ),
           ),
+
+          /*
+          // 재학생의 꿀팁 (titleText1)
+          // icon : / TextStyle : / color :
+          // Information(titleText[1], Icons.ac_unit),
+          */
+
           SizedBox(
-            width: 20,
-            height: 20,
+            height: 30,
+            width: 30,
           ),
+
+          PartSummary(),
+
+          // 가천대 학생들을 위한 꿀팁 (TitleText[2])
+          // icon : / TextStyle : / color :
+          PartMain("가천대 학생들을 위한 꿀팁", textTheme, colorTheme),
+
+          for(int i = 0; i < 8; i++)
+            PartSection("가천대 학생들을 위한 꿀팁", Icons.abc, textTheme, colorTheme),
+
+          // GET
+          /*
+          ListView.builder(
+              shrinkWrap: true,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                final apidata = commendsModel[index];
+                return Center(
+                  child: Material(
+                    child: Row(
+                      children: [
+                        Text(
+                          apidata.id.toString(),
+                        ),
+                        Text(
+                          apidata.name.toString(),
+                        ),
+                        Text(
+                          apidata.email.toString(),
+                        ),
+                        Text(
+                          apidata.body.toString(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+          ),
+          */
+
+          // POST
+          /*
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    registerUser(
+                      emailController.text.toString(),
+                      passwordController.text.toString(),
+                    );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue,
+                    ),
+                    child: Center(
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                          // fontWeight: Font,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          */
         ],
       ),
     );
