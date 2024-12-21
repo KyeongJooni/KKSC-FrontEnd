@@ -4,56 +4,27 @@
 // 남의 화면에서 받아오는거
 // api 하기
 
-// 기본 라이브러리
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField2.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldandReviewText.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCard.dart';
-
-// component (foodinformation -> ReviewCard)
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCard.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCardTest.dart';
-
-// 음식 관련 화면 이동 dart
-
-// 음식 관련 리뷰 조회 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart'; // food_ration_ui -> Restaurant
-
-// 신입생 팁 관련 화면 이동 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Honeytip/Honeytip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Notice/Notice.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/RestaurantList.dart';
 
 // util - 변수 및 폰트 지정 위한 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/variable.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_model.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_services.dart';
 
 // component
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/color_theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosnt_value.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/text_styles.dart';
 
-void main() {
-  runApp(
-    ProviderScope(
-      child: AlarmpageScreen(),
-    ),
-    // ProviderScope는 제거할 예정
-  );
-}
-
-class AlarmpageScreen extends StatefulWidget {
-  const AlarmpageScreen({super.key});
+class AlarmPageScreen extends StatefulWidget {
+  const AlarmPageScreen({super.key});
 
   @override
-  State<AlarmpageScreen> createState() => _AlarmpageScreenState();
+  State<AlarmPageScreen> createState() => _AlarmPageScreenState();
 }
 
-class _AlarmpageScreenState extends State<AlarmpageScreen> {
+class _AlarmPageScreenState extends State<AlarmPageScreen> {
   Widget OtherPartCollector(String titleText, String subTitleText, String subTitleText2, IconData icon, Widget Function() widgetBuilder) {
     return InkWell(
       child: CommonColumnField2(
@@ -76,7 +47,7 @@ class _AlarmpageScreenState extends State<AlarmpageScreen> {
 
   Widget FoodPartCollector(String titleText, String subTitleText, String subTitleText2, IconData icon, Widget Function() widgetBuilder) {
     return InkWell(
-      child: CommonColumnFieldandReviewText(
+      child: CommonColumnField2(
         icon: icon,
         title: titleText,
         subtitle: subTitleText,
@@ -94,24 +65,6 @@ class _AlarmpageScreenState extends State<AlarmpageScreen> {
     );
   }
 
-  // Declare the ScrollController
-  ScrollController _scrollController = ScrollController();
-
-  final List<Map<String, String>> reviewData = [
-    {"user": "사용자1", "name": "전주식당", "content": "맛있는 음식이었어요", "starCount": "5"},
-    {"user": "사용자2", "name": "차이나타운", "content": "별로였어요", "starCount": "1"},
-    {"user": "사용자3", "name": "차이나타운", "content": "음 굿", "starCount": "3"},
-    {"user": "사용자4", "name": "엉터리분식", "content": "음 굿", "starCount": "3"},
-    {"user": "사용자5", "name": "엉터리분식", "content": "별로였어요", "starCount": "1"},
-  ];
-
-  @override
-  void dispose() {
-    // Dispose the ScrollController when the widget is disposed
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     // final brightness = View.of(context).platformDispatcher.platformBrightness;
@@ -121,10 +74,38 @@ class _AlarmpageScreenState extends State<AlarmpageScreen> {
     final colorTheme = Theme.of(context).colorScheme;
     TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
 
-    return SingleChildScrollView(
+    return Material(
       child: Column(
         children: [
-          FoodPartCollector(titleText[6], subTitleText[4], subTitleText[6], Icons.food_bank_outlined, () => RestaurantScreen()),
+          DefaultTabController(
+            length: 3,
+            child: Scaffold(
+              appBar: AppBar(
+                bottom: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.directions_car)),
+                    Tab(icon: Icon(Icons.directions_transit)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                  ],
+                ),
+                title: const Text('Tabs Demo'),
+              ),
+              body: const TabBarView(
+                children: [
+                  Icon(Icons.directions_car),
+                  Icon(Icons.directions_transit),
+                  Icon(Icons.directions_bike),
+                ],
+              ),
+            ),
+          ),
+          FoodPartCollector(
+              titleText[6],
+              subTitleText[4],
+              subTitleText[6],
+              Icons.food_bank_outlined,
+                  () => RestaurantScreen()
+          ),
           Divider(
             height: 1,
             color: Colors.grey[40],
