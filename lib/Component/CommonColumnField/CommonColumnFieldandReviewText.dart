@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/color_theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosnt_value.dart';
@@ -46,14 +47,18 @@ class CommonColumnFieldandReviewText extends StatelessWidget {
 
             // TextStyle :
             // Color :
-            style: textTheme.bodyMedium,
+            style: textTheme.titleLarge?.copyWith( // bodyMedium 스타일을 기반으로 수정
+              color: colorTheme.scrim, // 색상 변경
+            ),
           ),
           subtitle: Text(
             subtitle,
 
             // TextStyle :
             // Color :
-            style: textTheme.bodyMedium,
+            style: textTheme.labelLarge?.copyWith( // bodyMedium 스타일을 기반으로 수정
+              color: colorTheme.scrim, // 색상 변경
+            ),
           ),
         ),
         Padding(
@@ -63,6 +68,9 @@ class CommonColumnFieldandReviewText extends StatelessWidget {
             children: [
               Text(
                 subtitle2,
+                style: textTheme.bodySmall?.copyWith( // bodyMedium 스타일을 기반으로 수정
+                  color: colorTheme.scrim, // 색상 변경
+                ),
               ),
             ],
           ),
@@ -71,3 +79,4 @@ class CommonColumnFieldandReviewText extends StatelessWidget {
     );
   }
 }
+*/

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kksc_app_fe/Screen/Mypage/Mypage.dart';
-import 'package:kksc_app_fe/Screen/Mainpage/variable.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mypage/Mypage.dart';
+// import 'package:kksc_app_fe/Screen/Mypage/Mypage.dart';
+// import 'package:kksc_app_fe/Screen/Mainpage/variable.dart';
 
 class GCG_TopAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
@@ -14,6 +15,7 @@ class GCG_TopAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    String ImageURL_AppBar = "assets/img/icon/gachon_logo.png";
     return AppBar(
       backgroundColor: backgroundColor,
       elevation: 0,

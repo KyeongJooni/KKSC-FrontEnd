@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/TopAppbar.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/main_ui.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/Appbar/TopAppbar.dart';
 
 class FreshmanTipUI extends StatelessWidget {
   const FreshmanTipUI({super.key});

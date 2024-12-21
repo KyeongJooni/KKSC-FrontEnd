@@ -1,19 +1,19 @@
-// (전체적으로 변동 가능성 존재)
-// json 맛집 개수만큼 동적으로 뿌리게 제작
-// 반복되는 위젯 -> list로 작업
-// 같은 화면으로 넘어가게 변경 (백엔드 협의 후)
-
 // 기본 라이브러리
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCardTest.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldBasic.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCard/LabelCardMainpage.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCard/ReviewCardMainpage.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Honeytip/Honeytip.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/AlarmPage.dart';
 
 // component (foodinformation -> ReviewCard)
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCardTest.dart';
 
 // 음식 관련 화면 이동 dart
 
@@ -66,27 +66,23 @@ class _MainpageScreenState extends State<MainpageScreen> {
   );
   */
 
-  // 메인 화면 (TitleText0) + 재학생의 꿀팁 위젯으로 넘어가는 부분 (TitleText1, iconStudent)
-  Widget PartMain(String TitleText0, TextTheme textTheme, final colorTheme) {
-    // 메인 화면 (TitleText0)
+  // 대제목 (메인 화면, 가천대 학생들을 위한 꿀팁)
+  // icon : X / TextStyle : headlineMedium / color : scrim
+  Widget PartMain(String titleText, TextTheme textTheme, final colorTheme) {
     return Column(
       children: [
         SizedBox(
           width: 20,
           height: 10,
         ),
-
-        // 메인 화면 (TitleText0)
         Padding(
           padding: EdgeInsets.all(20.0),
           child: Row(
             children: [
-              // 메인 화면 (TitleText0)
               Text(
-                TitleText0,
-                // 폰트 위한 스타일 다시 지정 예정
-                style: textTheme.headlineMedium?.copyWith( // bodyMedium 스타일을 기반으로 수정
-                  color: colorTheme.scrim, // 색상 변경
+                titleText,
+                style: textTheme.headlineMedium?.copyWith(
+                  color: colorTheme.scrim,
                 ),
               ),
             ],
@@ -98,56 +94,60 @@ class _MainpageScreenState extends State<MainpageScreen> {
       ],
     );
   }
-
-  // 재학생의 꿀팁 (TitleText1, iconStudent)
-  // 타이틀 텍스트 (TitleText)
-  // 서브 타이틀 텍스트 (SubTitleText)
-  // 왼쪽 아이콘 (Icon)
-  Widget Information(String titleText, IconData icon) {
-    return InkWell(
-      child: CommonColumnField(
-        title: titleText,
-        icon: Icons.abc_outlined,
-      ),
-    );
-  }
-
-  Widget PartSummary() {
+  
+  // 학교 홈, 셔틀버스, 학사공지, 학사일정, 도서관, 포털
+  Widget OtherPartSummary(String name, IconData icon, Widget Function() widgetBuilder) {
     return Row(
       children: [
-        for (int i = 0; i < 5; i++)
-          InkWell(
-            child: LabelCardTest(
-              name: "name",
-              text: "text",
+        InkWell(
+          child: Center(
+            child: LabelCardMainpage(
+              name: name,
+              icon: icon,
             ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RestaurantScreen(),
-                ),
-              );
-            },
           ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => widgetBuilder(),
+              ),
+            );
+          },
+        ),
       ],
     );
   }
 
-  Widget PartSection(String titleText, IconData icon, TextTheme textTheme, final colorTheme) {
+  // 가천대 학생들을 위한 꿀팁 모음 Section (PartSection)
+  // icon : X / TextStyle : labelSmall (title : bold, subtitle : basic) / color : scrim
+  Widget PartSection(String titleText, String subtitleText, IconData icon, TextTheme textTheme, final colorTheme, Widget Function() widgetBuilder) {
     return Container(
       width: 500,
       height: 50,
       decoration: BoxDecoration(
         color: colorTheme.outlineVariant,
       ),
-      child: Information(titleText, icon),
+      child: InkWell(
+        child: CommonColumnFieldBasic(
+          title: titleText,
+          subtitle: subtitleText,
+          icon: icon,
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => widgetBuilder(),
+            ),
+          );
+        },
+      ),
     );
   }
 
   // Declare the ScrollController
   ScrollController _scrollController = ScrollController();
-
   /*
   final _valueList = [
     '한국어',
@@ -163,14 +163,6 @@ class _MainpageScreenState extends State<MainpageScreen> {
   ];
   */
 
-  final List<Map<String, String>> reviewData = [
-    {"user": "사용자1", "name": "전주식당", "content": "맛있는 음식이었어요", "starCount": "5"},
-    {"user": "사용자2", "name": "차이나타운", "content": "별로였어요", "starCount": "1"},
-    {"user": "사용자3", "name": "차이나타운", "content": "음 굿", "starCount": "3"},
-    {"user": "사용자4", "name": "엉터리분식", "content": "음 굿", "starCount": "3"},
-    {"user": "사용자5", "name": "엉터리분식", "content": "별로였어요", "starCount": "1"},
-  ];
-
   // GET
   List<CommandsModel> commendsModel = [];
   getComments() {
@@ -180,10 +172,18 @@ class _MainpageScreenState extends State<MainpageScreen> {
       });
     });
   }
+
   @override
   void initState() {
     getComments();
     super.initState();
+    _initializeLocale();
+  }
+
+  Future<void> _initializeLocale() async {
+    await initializeDateFormatting('ko_KR', null);
+    setState(() {
+    });
   }
 
   // POST
@@ -220,12 +220,258 @@ class _MainpageScreenState extends State<MainpageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /*
+    List OtherPartSummaryName = [
+      "학교 홈",
+      "셔틀 버스",
+      "학사 공지",
+      "학사 일정",
+      "도서관",
+      "포털"
+    ];
+    List OtherPartSummaryIcon = [
+      Icons.abc,
+      Icons.ac_unit,
+      Icons.access_alarm_outlined,
+      Icons.ac_unit_outlined,
+      Icons.access_time_filled_rounded
+    ];
+    // 임시
+    List<Widget Function()> OtherPartSummaryPage = [
+      () => RestaurantScreen(),
+      () => AlarmPageScreen(),
+      () => RestaurantScreen(),
+      () => AlarmPageScreen(),
+      () => RestaurantScreen(),
+    ];
+    */
     // final brightness = View.of(context).platformDispatcher.platformBrightness;
     // MaterialTheme theme = MaterialTheme(textTheme);
-
+    
     // 텍스트 테마 및 컬러 테마를 불러옴
     final colorTheme = Theme.of(context).colorScheme;
     TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
+
+    // 임시
+    List<Widget Function()> ReviewPage = [
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+    ];
+
+    // 임시
+    List<Widget Function()> PartSectionPage = [
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+    ];
+    var now = DateTime.now();
+    String formattedDate = DateFormat('M월 d일').format(now) +
+        ' (${DateFormat.E('ko_KR').format(now)})';
+
+    String formattedDateSectionMonth = DateFormat('M').format(now);
+    String formattedDateSectionYear = DateFormat('y').format(now);
+    // https://luvris2.tistory.com/770
+    // https://blueoceannshark.tistory.com/entry/flutter%ED%94%8C%EB%9F%AC%ED%84%B0-%EC%8B%9C%EA%B0%84%EB%82%A0%EC%A7%9C%EC%9A%94%EC%9D%BC-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%B0%8F-%EC%8B%9C%EA%B0%84-%EC%9E%90%EB%8F%99-%EA%B0%B1%EC%8B%A0-%EB%B0%A9%EB%B2%95TimerBuilder
+    // ㄴ원랜 timer_builder도 설치해야함.
+    // DateFormat('MMM ddd EEEE').format(now);
+
+    List reviewerContent = [
+      "오늘의 일정을 체크해보세요.",
+      formattedDate,
+    ];
+
+    // main_ui.dart
+    List subTitleText = [
+      "신입생들을 위한 조언과 팁",
+      "시간표 짜는 방법 소개",
+      "선배님들이 인정하는 최고의 맛집들", // 평점 : / 리뷰 개수 :
+      "$formattedDateSectionYear년 $formattedDateSectionMonth월 이벤트",
+      "서비스 오픈 예정",
+      "새로운 기능 추가"
+    ];
+
+    /*
+// main.dart
+String ImageURL = 'assets/img/icon/kksc_logo.jpg';
+
+String Id = '김한성'; // 구현되면 매개변수로 받아야할듯
+String Email = 'gkstjd6097@gmail.com';
+
+// main.dart
+String Version = 'Version: $VersionInnerText';
+String VersionInnerText = '1.0.0';
+
+// appbar.dart
+String ImageURL_AppBar = 'assets/img/icon/gachon_logo.png';
+
+// foodinformation.dart
+
+// main_ui.dart
+var isLanguage = true;
+*/
+    /*
+String foodPlaceNameKor = '맛집 이름';
+String otherFoodPlaceNameKor = '또 다른 맛집'; // shift + f6 -> or alt + f7
+String foodPlaceName = '맛집 이름';
+String otherFoodPlaceName = '또 다른 맛집';
+
+List reviewerNameKor = [
+  newReviewerNameKor,
+  newReviewerNameKor2,
+  newReviewerNameKor3,
+];
+String newReviewerNameKor = '맛집 리뷰어 1'; // 변수로 받아올 예정
+String newReviewerNameKor2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
+String newReviewerNameKor3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
+
+List reviewerTextKor = [
+  newReviewerTextKor,
+  newReviewerTextKor2,
+  newReviewerTextKor3,
+];
+String newReviewerTextKor = "매우 만족"; // 변수로 받아올 예정
+String newReviewerTextKor2 = "다소 만족"; // 변수로 받아올 예정
+String newReviewerTextKor3 = "보통"; // 변수로 받아올 예정
+
+List titleTextKor = [
+  "메인 화면",
+  "재학생의 꿀팁",
+
+  "가천대 학생들을 위한 꿀팁",
+  "첫 학기 계획 세우기",
+  "시간표 짜기 꿀팁",
+
+  "학교 근처 맛집",
+
+  foodPlaceNameKor,
+  otherFoodPlaceNameKor,
+
+  "맛집 리뷰"
+];
+
+// main_ui.dart
+List titleTextEng = [
+  "Main Screen",
+  "Senior Tip",
+  "Tip for Gachon Univ Students",
+  "To Plan First Semester",
+  "To Plan TimeTable",
+  "Delicious Near The Gachon Univ",
+  foodPlaceNameEng,
+  otherFoodPlaceNameEng,
+
+  "Delicious Food Review"
+];
+String foodPlaceNameEng = 'Good Food Place Name';
+String otherFoodPlaceNameEng = 'Another Food Place Name';
+
+// main_ui.dart
+List subTitleTextEng = [
+  "Freshman",
+  "Comments and Tips For Freshman",
+  "TimeTable",
+  "Introduction of Writing TimeTable",
+  "rate : $rateFood",
+  "rate : $otherRateFood",
+  "review : $reviewCount",
+  "review : $otherReviewCount",
+];
+
+List subTitleTextKor = [
+  "신입생",
+  "신입생들을 위한 조언과 팁",
+
+  "시간표",
+  "시간표 짜는 방법 소개",
+
+  "평점 : $rateFood",
+  "평점 : $otherRateFood",
+
+  "리뷰 : $reviewCount개",
+  "리뷰 : $otherReviewCount개",
+];
+
+// main_ui.dart
+List reviewerNameEng = [
+  newReviewerNameEng,
+  newReviewerNameEng2,
+  newReviewerNameEng3,
+];
+String newReviewerNameEng = 'Reviewer 1'; // 변수로 받아올 예정
+String newReviewerNameEng2 = 'Reviewer 2'; // 변수로 받아올 예정
+String newReviewerNameEng3 = 'Reviewer 3'; // 변수로 받아올 예정
+
+// main_ui.dart
+List reviewerTextEng = [
+  newReviewerTextEng,
+  newReviewerTextEng2,
+  newReviewerTextEng3,
+];
+String newReviewerTextEng = 'Very nice'; // 변수로 받아올 예정
+String newReviewerTextEng2 = 'Sometime good'; // 변수로 받아올 예정
+String newReviewerTextEng3 = 'Simple'; // 변수로 받아올 예정
+*/
+    /*
+double rateFood = 4.5;
+double otherRateFood = 4.0;
+int reviewCount = 100;
+int otherReviewCount = 80;
+
+// main_ui.dart
+List reviewerName = [
+  newReviewerName,
+  newReviewerName2,
+  newReviewerName3,
+  newReviewerName3,
+  newReviewerName3,
+];
+String newReviewerName = '맛집 리뷰어 1'; // 변수로 받아올 예정
+String newReviewerName2 = '맛집 리뷰어 2'; // 변수로 받아올 예정
+String newReviewerName3 = '맛집 리뷰어 3'; // 변수로 받아올 예정
+
+// main_ui.dart
+List reviewerText = [
+  newReviewerText,
+  newReviewerText2,
+  newReviewerText3,
+  newReviewerText3,
+  newReviewerText3,
+];
+String newReviewerText = '매우 만족'; // 변수로 받아올 예정
+String newReviewerText2 = '다소 만족'; // 변수로 받아올 예정
+String newReviewerText3 = '보통'; // 변수로 받아올 예정
+*/
+
+// main_ui.dart
+    List titleText = [
+      "첫 학기 계획 세우기",
+      "시간표 짜기 꿀팁",
+      "맛집 찾기",
+      "학교 행사",
+      "가천 길잡이 업데이트 일정",
+      "서비스 이용 안내",
+    ];
+
+    List reviewerTitle = [
+      "이번 학기 시간표",
+      "오늘의 할일",
+    ];
+
+    List subreviewerContent = [
+      "더보기 >",
+      "todo list >",
+    ];
+
+    final List<Map<String, String>> reviewData = [
+      {"user": "사용자1", "name": "전주식당", "content": "맛있는 음식이었어요", "starCount": "5"},
+      {"user": "사용자2", "name": "차이나타운", "content": "별로였어요", "starCount": "1"},
+      {"user": "사용자3", "name": "차이나타운", "content": "음 굿", "starCount": "3"},
+      {"user": "사용자4", "name": "엉터리분식", "content": "음 굿", "starCount": "3"},
+      {"user": "사용자5", "name": "엉터리분식", "content": "별로였어요", "starCount": "1"},
+    ];
 
     return SingleChildScrollView(
       child: Column(
@@ -301,7 +547,6 @@ class _MainpageScreenState extends State<MainpageScreen> {
             ),
           ),
           */
-
           /*
           // 언어 선택을 위한 DropdownButton (ElevatedButton에서 변경)
           Row(
@@ -402,44 +647,28 @@ class _MainpageScreenState extends State<MainpageScreen> {
         // color :
           */
 
-          // 메인 화면 (titleText[0])
-          // icon : / TextStyle : / color :
-          PartMain(titleText[0], textTheme, colorTheme),
+          // 대제목 (메인 화면)
+          // icon : X / TextStyle : headlineMedium / color : scrim
+          PartMain("메인 화면", textTheme, colorTheme),
 
-          // 맛집 리뷰어 (ReviewerName[0 ~ n]), 매우 만족 등 맛집에 대한 평가 (ReviewerText[0 ~ n]), 별점 등 뷰어 (3.0 등 double 매개변수 지정)
+          // 시간표 or todo list or 학점 계산기
+          // icon : / TextStyle : / color :
           Scrollbar(
             controller: _scrollController,
             // Attach the controller to the scrollbar
             child: SingleChildScrollView(
               controller: _scrollController,
-              // Attach the controller to the scrollable widget
               scrollDirection: Axis.horizontal,
-              // 최댓값 찾는 알고리즘
-              // 차댓값 찾는 알고리즘
-              // 최댓값 리뷰 개수 구하는 알고리즘
-              // 차댓값 리뷰 개수 구하는 알고리즘
               child: Row(
                 children: [
-                  // food_ration_ui.dart로 넘어감 (FoodRationUI)
-                  // 추후 새로 구현 예정 (팁 화면 구현한거 보면서 각자 해당하는 화면으로 이동 예정)
-                  for(int i = 0; i < 5; i++)
+                  for(int i = 0; i < 2; i++)
                     Row(
                       children: [
-                        InkWell(
-                          child: ReviewCardTest(
-                            user: reviewData[i]["user"]!,
-                            content: reviewData[i]["content"]!,
-                            starCount: reviewData[i]["starCount"]!,
-                            restaurantName: reviewData[i]["name"]!,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RestaurantScreen(),
-                              ),
-                            );
-                          },
+                        ReviewCardMainpage(
+                          title: reviewerTitle[i],
+                          content: reviewerContent[i],
+                          subcontent: subreviewerContent[i],
+                          widgetBuilder: ReviewPage[i],
                         ),
                         SizedBox(
                           height: 20,
@@ -464,19 +693,29 @@ class _MainpageScreenState extends State<MainpageScreen> {
           */
 
           SizedBox(
-            height: 30,
-            width: 30,
+            height: 10,
+            width: 10,
           ),
 
-          PartSummary(),
+          // 학교 홈, 셔틀버스, 학사공지, 학사일정, 도서관, 포털 (OtherPartSummary)
+          // icon : O () / TextStyle : labelLarge / color : scrim
+          /*
+          Row(
+            children: [
+              for (int i = 0; i < 5; i++)
+              OtherPartSummary(OtherPartSummaryName[i], OtherPartSummaryIcon[i], OtherPartSummaryPage[i]),
+            ],
+          ),
+          */
 
-          // 가천대 학생들을 위한 꿀팁 (TitleText[2])
-          // icon : / TextStyle : / color :
+          // 가천대 학생들을 위한 꿀팁 (PartMain)
+          // icon : X / TextStyle : headlineMedium / color : scrim
           PartMain("가천대 학생들을 위한 꿀팁", textTheme, colorTheme),
 
-          for(int i = 0; i < 8; i++)
-            PartSection("가천대 학생들을 위한 꿀팁", Icons.abc, textTheme, colorTheme),
-
+          // 가천대 학생들을 위한 꿀팁 모음 Section (PartSection)
+          // icon : X / TextStyle : labelSmall (title : bold, subtitle : basic) / color : scrim
+          for(int i = 0; i < 6; i++)
+            PartSection(titleText[i], subTitleText[i], Icons.abc, textTheme, colorTheme, PartSectionPage[i]),
           // GET
           /*
           ListView.builder(
