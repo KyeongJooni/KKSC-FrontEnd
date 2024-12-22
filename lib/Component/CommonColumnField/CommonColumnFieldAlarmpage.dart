@@ -6,14 +6,12 @@ import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosn
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/text_styles.dart';
 
 class CommonColumnFieldAlarmpage extends StatelessWidget {
-  final IconData icon;
   final String title;
   final String subtitle;
   final String subtitle2;
 
   const CommonColumnFieldAlarmpage({
     Key? key,
-    required this.icon,
     required this.title,
     required this.subtitle,
     required this.subtitle2,
@@ -31,63 +29,54 @@ class CommonColumnFieldAlarmpage extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-        leading: Container(
-          height: 100,
-          width: 100,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.red,
-          ),
+          leading: Icon(
+          Icons.developer_board_rounded,
         ),
-        title: Text(
-            title,
 
-            // TextStyle :
-            // Color :
+          // 제목 (title)
+          // icon : X / TextStyle : titleLarge / color : scrim
+          title: Text(
+            title,
             style: textTheme.titleLarge?.copyWith( // bodyMedium 스타일을 기반으로 수정
               color: colorTheme.scrim, // 색상 변경
             ),
           ),
-        subtitle: Column(
+
+          // 내용 (subtitle)
+          // icon : X / TextStyle : labelLarge / color : scrim
+          // 날짜
+          // icon : X / TextStyle : bodySmall / color : outline
+          subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 신입생
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                    child: Container(
-                      width: 100.0,
-                      height: 30.0,
-                      // 신입생 (SubTitleText0) + 텍스트 스타일 (폰트) 지정하기
-                      child: Center(
-                        child: Text(
-                          subtitle2,
-                          style: textTheme.bodySmall?.copyWith( // bodyMedium 스타일을 기반으로 수정
-                            color: colorTheme.scrim, // 색상 변경
-                          ),
-                        ),
-                      ),
-                      // 스타일 따로 지정 예정
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                    ),
-                  ),
+                // 내용 (subtitle)
+                // icon : X / TextStyle : labelLarge / color : scrim
                 Text(
                     subtitle,
-                    // TextStyle :
-                    // Color :
                     style: textTheme.labelLarge?.copyWith( // bodyMedium 스타일을 기반으로 수정
                       color: colorTheme.scrim, // 색상 변경
                     ),
+                ),
+                // 날짜
+                // icon : X / TextStyle : bodySmall / color : outline
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                  child: Container(
+                    width: 100.0,
+                    height: 30.0,
+                    child: Center(
+                      child: Text(
+                        subtitle2,
+                        style: textTheme.bodySmall?.copyWith( // bodyMedium 스타일을 기반으로 수정
+                          color: colorTheme.outline, // 색상 변경
+                        ),
+                      ),
+                    ),
                   ),
+                ),
               ],
             ),
           ],

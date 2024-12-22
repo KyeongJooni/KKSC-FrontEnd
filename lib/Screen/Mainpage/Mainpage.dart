@@ -6,28 +6,40 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnField.dart';
+// component
+// Appbar
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/Appbar/CustomTopAppbar.dart';
+// CommonColumnField
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldAlarmpage.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldBasic.dart';
+// LabelCard
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCard/LabelCardMainpage.dart';
+// ReviewCard
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCard/ReviewCardMainpage.dart';
+
+// HoneyTip - 신입생 팁 관련 화면 이동 dart
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Honeytip/Honeytip.dart';
+
+// Mainpage
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/AlarmPage.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/Mainpage.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
 
-// component (foodinformation -> ReviewCard)
+// Mypage
+// Siguuppage
 
-// 음식 관련 화면 이동 dart
+// Notice
 
-// 음식 관련 리뷰 조회 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart'; // food_ration_ui -> Restaurant
+// Restaurant - 음식 관련 화면 이동 dart + 음식 관련 리뷰 조회 dart
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart';
 
-// 신입생 팁 관련 화면 이동 dart
+// Timetable
 
 // util - 변수 및 폰트 지정 위한 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/variable.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_model.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_services.dart';
-
-// component
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/color_theme.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosnt_value.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/text_styles.dart';
 
@@ -173,19 +185,6 @@ class _MainpageScreenState extends State<MainpageScreen> {
     });
   }
 
-  @override
-  void initState() {
-    getComments();
-    super.initState();
-    _initializeLocale();
-  }
-
-  Future<void> _initializeLocale() async {
-    await initializeDateFormatting('ko_KR', null);
-    setState(() {
-    });
-  }
-
   // POST
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -209,6 +208,19 @@ class _MainpageScreenState extends State<MainpageScreen> {
     } catch (e) {
       print("Error:$e");
     }
+  }
+
+  @override
+  void initState() {
+    getComments();
+    super.initState();
+    _initializeLocale();
+  }
+
+  Future<void> _initializeLocale() async {
+    await initializeDateFormatting('ko_KR', null);
+    setState(() {
+    });
   }
 
   @override
@@ -245,54 +257,6 @@ class _MainpageScreenState extends State<MainpageScreen> {
       () => RestaurantScreen(),
     ];
     */
-    // final brightness = View.of(context).platformDispatcher.platformBrightness;
-    // MaterialTheme theme = MaterialTheme(textTheme);
-    
-    // 텍스트 테마 및 컬러 테마를 불러옴
-    final colorTheme = Theme.of(context).colorScheme;
-    TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
-
-    // 임시
-    List<Widget Function()> ReviewPage = [
-          () => RestaurantScreen(),
-          () => HoneytipScreen(),
-    ];
-
-    // 임시
-    List<Widget Function()> PartSectionPage = [
-          () => RestaurantScreen(),
-          () => HoneytipScreen(),
-          () => RestaurantScreen(),
-          () => HoneytipScreen(),
-          () => RestaurantScreen(),
-          () => HoneytipScreen(),
-    ];
-    var now = DateTime.now();
-    String formattedDate = DateFormat('M월 d일').format(now) +
-        ' (${DateFormat.E('ko_KR').format(now)})';
-
-    String formattedDateSectionMonth = DateFormat('M').format(now);
-    String formattedDateSectionYear = DateFormat('y').format(now);
-    // https://luvris2.tistory.com/770
-    // https://blueoceannshark.tistory.com/entry/flutter%ED%94%8C%EB%9F%AC%ED%84%B0-%EC%8B%9C%EA%B0%84%EB%82%A0%EC%A7%9C%EC%9A%94%EC%9D%BC-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%B0%8F-%EC%8B%9C%EA%B0%84-%EC%9E%90%EB%8F%99-%EA%B0%B1%EC%8B%A0-%EB%B0%A9%EB%B2%95TimerBuilder
-    // ㄴ원랜 timer_builder도 설치해야함.
-    // DateFormat('MMM ddd EEEE').format(now);
-
-    List reviewerContent = [
-      "오늘의 일정을 체크해보세요.",
-      formattedDate,
-    ];
-
-    // main_ui.dart
-    List subTitleText = [
-      "신입생들을 위한 조언과 팁",
-      "시간표 짜는 방법 소개",
-      "선배님들이 인정하는 최고의 맛집들", // 평점 : / 리뷰 개수 :
-      "$formattedDateSectionYear년 $formattedDateSectionMonth월 이벤트",
-      "서비스 오픈 예정",
-      "새로운 기능 추가"
-    ];
-
     /*
 // main.dart
 String ImageURL = 'assets/img/icon/kksc_logo.jpg';
@@ -444,8 +408,37 @@ String newReviewerText = '매우 만족'; // 변수로 받아올 예정
 String newReviewerText2 = '다소 만족'; // 변수로 받아올 예정
 String newReviewerText3 = '보통'; // 변수로 받아올 예정
 */
+    // final brightness = View.of(context).platformDispatcher.platformBrightness;
+    // MaterialTheme theme = MaterialTheme(textTheme);
+    
+    // 텍스트 테마 및 컬러 테마를 불러옴
+    final colorTheme = Theme.of(context).colorScheme;
+    TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
 
-// main_ui.dart
+    // 임시
+    List<Widget Function()> ReviewPage = [
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+    ];
+    List<Widget Function()> PartSectionPage = [
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+          () => FreshmanTipUI(),
+          () => TimeTableTipUI(),
+          () => RestaurantScreen(),
+          () => HoneytipScreen(),
+    ];
+
+    var now = DateTime.now();
+    String formattedDate = DateFormat('M월 d일').format(now) +
+        ' (${DateFormat.E('ko_KR').format(now)})';
+    String formattedDateSectionMonth = DateFormat('M').format(now);
+    String formattedDateSectionYear = DateFormat('y').format(now);
+    // https://luvris2.tistory.com/770
+    // https://blueoceannshark.tistory.com/entry/flutter%ED%94%8C%EB%9F%AC%ED%84%B0-%EC%8B%9C%EA%B0%84%EB%82%A0%EC%A7%9C%EC%9A%94%EC%9D%BC-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%B0%8F-%EC%8B%9C%EA%B0%84-%EC%9E%90%EB%8F%99-%EA%B0%B1%EC%8B%A0-%EB%B0%A9%EB%B2%95TimerBuilder
+    // ㄴ원랜 timer_builder도 설치해야함.
+    // DateFormat('MMM ddd EEEE').format(now);
+
     List titleText = [
       "첫 학기 계획 세우기",
       "시간표 짜기 꿀팁",
@@ -454,23 +447,26 @@ String newReviewerText3 = '보통'; // 변수로 받아올 예정
       "가천 길잡이 업데이트 일정",
       "서비스 이용 안내",
     ];
+    List subTitleText = [
+      "신입생들을 위한 조언과 팁",
+      "시간표 짜는 방법 소개",
+      "선배님들이 인정하는 최고의 맛집들",
+      "$formattedDateSectionYear년 $formattedDateSectionMonth월 이벤트",
+      "서비스 오픈 예정",
+      "새로운 기능 추가"
+    ];
 
     List reviewerTitle = [
       "이번 학기 시간표",
       "오늘의 할일",
     ];
-
+    List reviewerContent = [
+      "오늘의 일정을 체크해보세요.",
+      formattedDate,
+    ];
     List subreviewerContent = [
       "더보기 >",
       "todo list >",
-    ];
-
-    final List<Map<String, String>> reviewData = [
-      {"user": "사용자1", "name": "전주식당", "content": "맛있는 음식이었어요", "starCount": "5"},
-      {"user": "사용자2", "name": "차이나타운", "content": "별로였어요", "starCount": "1"},
-      {"user": "사용자3", "name": "차이나타운", "content": "음 굿", "starCount": "3"},
-      {"user": "사용자4", "name": "엉터리분식", "content": "음 굿", "starCount": "3"},
-      {"user": "사용자5", "name": "엉터리분식", "content": "별로였어요", "starCount": "1"},
     ];
 
     return SingleChildScrollView(
