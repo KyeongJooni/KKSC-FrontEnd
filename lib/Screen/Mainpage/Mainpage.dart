@@ -25,6 +25,7 @@ import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Ma
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/Mainpage.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Notice/Notice.dart';
 
 // Mypage
 // Siguuppage
@@ -33,6 +34,7 @@ import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Ma
 
 // Restaurant - 음식 관련 화면 이동 dart + 음식 관련 리뷰 조회 dart
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Timetable/everytime_timetable.dart';
 
 // Timetable
 
@@ -106,7 +108,7 @@ class _MainpageScreenState extends State<MainpageScreen> {
       ],
     );
   }
-  
+
   // 학교 홈, 셔틀버스, 학사공지, 학사일정, 도서관, 포털
   Widget OtherPartSummary(String name, IconData icon, Widget Function() widgetBuilder) {
     return Row(
@@ -410,23 +412,23 @@ String newReviewerText3 = '보통'; // 변수로 받아올 예정
 */
     // final brightness = View.of(context).platformDispatcher.platformBrightness;
     // MaterialTheme theme = MaterialTheme(textTheme);
-    
+
     // 텍스트 테마 및 컬러 테마를 불러옴
     final colorTheme = Theme.of(context).colorScheme;
     TextTheme textTheme = createTextTheme(context, defaultFontName, defaultFontName);
 
     // 임시
     List<Widget Function()> ReviewPage = [
+          () => TimetableScreen(),
           () => RestaurantScreen(),
-          () => HoneytipScreen(),
     ];
     List<Widget Function()> PartSectionPage = [
-          () => RestaurantScreen(),
-          () => HoneytipScreen(),
           () => FreshmanTipUI(),
           () => TimeTableTipUI(),
           () => RestaurantScreen(),
-          () => HoneytipScreen(),
+          () => NoticeScreen(),
+          () => NoticeScreen(),
+          () => NoticeScreen(),
     ];
 
     var now = DateTime.now();
