@@ -24,6 +24,7 @@ import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Ho
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/AlarmPage.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/Mainpage.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
+import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/home_page.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
 import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Notice/Notice.dart';
 
@@ -420,7 +421,7 @@ String newReviewerText3 = '보통'; // 변수로 받아올 예정
     // 임시
     List<Widget Function()> ReviewPage = [
           () => TimetableScreen(),
-          () => RestaurantScreen(),
+          () => HomePage(),
     ];
     List<Widget Function()> PartSectionPage = [
           () => FreshmanTipUI(),
