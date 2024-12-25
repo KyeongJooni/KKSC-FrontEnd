@@ -74,6 +74,7 @@ List<String> TIME = [
   '17',
 ];
 
+// 기본 데이터 (에브리타임 혹은 )
 final List<Map<String, String>> MonTimetableData = [
   {"day" : "월", "subject": "", "startTime": "9", "endTime": "10", "professorName": "", "room": ""},
   {"day" : "월", "subject": "", "startTime": "10", "endTime": "11", "professorName": "", "room": ""},
@@ -148,14 +149,14 @@ final List<Map<String, String>> ThurTimetableData = [
   {"day" : "목", "subject": "", "startTime": "16", "endTime": "17", "professorName": "", "room": ""},
 ];
 final List<Map<String, String>> ThurTimetableRealData = [
-  {"day" : "목", "subject": "콜잉2", "startTime": "9", "endTime": "10", "professorName": "", "room": ""},
-  {"day" : "목", "subject": "콜잉2", "startTime": "10", "endTime": "11", "professorName": "", "room": ""},
+  {"day" : "목", "subject": "콜잉2", "startTime": "9", "endTime": "10", "professorName": "Angelo Apostolakis", "room": "글로벌센터-204"},
+  {"day" : "목", "subject": "콜잉2", "startTime": "10", "endTime": "11", "professorName": "Angelo Apostolakis", "room": "글로벌센터-204"},
   {"day" : "목", "subject": "", "startTime": "11", "endTime": "12", "professorName": "", "room": ""},
   {"day" : "목", "subject": "", "startTime": "12", "endTime": "13", "professorName": "", "room": ""},
   {"day" : "목", "subject": "", "startTime": "13", "endTime": "14", "professorName": "", "room": ""},
   {"day" : "목", "subject": "", "startTime": "14", "endTime": "15", "professorName": "", "room": ""},
-  {"day" : "목", "subject": "다문화", "startTime": "15", "endTime": "16", "professorName": "", "room": ""},
-  {"day" : "목", "subject": "다문화", "startTime": "16", "endTime": "17", "professorName": "", "room": ""},
+  {"day" : "목", "subject": "다문화", "startTime": "15", "endTime": "16", "professorName": "강혜정", "room": "실시간화상강의실"},
+  {"day" : "목", "subject": "다문화", "startTime": "16", "endTime": "17", "professorName": "강혜정", "room": "실시간화상강의실"},
 ];
 
 final List<Map<String, String>> FriTimetableData = [
@@ -169,29 +170,62 @@ final List<Map<String, String>> FriTimetableData = [
   {"day" : "금", "subject": "", "startTime": "16", "endTime": "17", "professorName": "", "room": ""},
 ];
 final List<Map<String, String>> FriTimetableRealData = [
-  {"day" : "금", "subject": "이산수학", "startTime": "9", "endTime": "10", "professorName": "", "room": ""},
-  {"day" : "금", "subject": "이산수학", "startTime": "10", "endTime": "11", "professorName": "", "room": ""},
-  {"day" : "금", "subject": "이산수학", "startTime": "11", "endTime": "12", "professorName": "", "room": ""},
+  {"day" : "금", "subject": "이산수학", "startTime": "9", "endTime": "10", "professorName": "조윤실", "room": "AI관-508"},
+  {"day" : "금", "subject": "이산수학", "startTime": "10", "endTime": "11", "professorName": "조윤실", "room": "AI관-508"},
+  {"day" : "금", "subject": "이산수학", "startTime": "11", "endTime": "12", "professorName": "조윤실", "room": "AI관-508"},
   {"day" : "금", "subject": "", "startTime": "12", "endTime": "13", "professorName": "", "room": ""},
-  {"day" : "금", "subject": "과기글", "startTime": "13", "endTime": "14", "professorName": "", "room": ""},
-  {"day" : "금", "subject": "과기글", "startTime": "14", "endTime": "15", "professorName": "", "room": ""},
+  {"day" : "금", "subject": "과기글", "startTime": "13", "endTime": "14", "professorName": "권승태", "room": "비전타워-306"},
+  {"day" : "금", "subject": "과기글", "startTime": "14", "endTime": "15", "professorName": "권승태", "room": "비전타워-306"},
   {"day" : "금", "subject": "", "startTime": "15", "endTime": "16", "professorName": "", "room": ""},
   {"day" : "금", "subject": "", "startTime": "16", "endTime": "17", "professorName": "", "room": ""},
 ];
 
+// 기본 데이터를 통한 시간표 그리기 및 다양한 용도로 활용
+final List<List<Map<String, String>>> TimetableData = [
+  MonTimetableData,
+  TueTimetableData,
+  WedTimetableData,
+  ThurTimetableData,
+  FriTimetableData,
+];
+final List<List<Map<String, String>>> TimetableRealData = [
+  MonTimetableRealData,
+  TueTimetableRealData,
+  WedTimetableRealData,
+  ThurTimetableRealData,
+  FriTimetableRealData,
+];
+
+// 추가 활용? (테스트 데이터)
+final List<Map<String, String>> AddTimetableRealData = [
+  {"day" : "월", "subject": "이산수학 (영어강의)", "startTime": "9", "endTime": "10", "professorName": "윤유림", "room": "AI관-508"},
+  {"day" : "월", "subject": "", "startTime": "10", "endTime": "11", "professorName": "조윤실", "room": "AI관-508"},
+  {"day" : "화", "subject": "과학기술글쓰기", "startTime": "11", "endTime": "12", "professorName": "나지영", "room": "비전타워-202"},
+  {"day" : "화", "subject": "", "startTime": "12", "endTime": "13", "professorName": "", "room": ""},
+  {"day" : "수", "subject": "과기글", "startTime": "13", "endTime": "14", "professorName": "권승태", "room": "비전타워-306"},
+  {"day" : "수", "subject": "과기글", "startTime": "14", "endTime": "15", "professorName": "권승태", "room": "비전타워-306"},
+  {"day" : "목", "subject": "지방자치의이해", "startTime": "15", "endTime": "16", "professorName": "", "room": ""},
+  {"day" : "금", "subject": "", "startTime": "16", "endTime": "17", "professorName": "", "room": ""},
+];
 class TimetableScreen extends StatefulWidget {
   @override
   State<TimetableScreen> createState() => _TimetableScreenState();
 }
 
 class _TimetableScreenState extends State<TimetableScreen> {
-  Widget time (String time) {
+  void modifyTimetableContent(String InputText) {
+    print("작동중");
+    print(InputText);
+  }
+
+  Widget time (String time, TextTheme textTheme, final colorTheme) {
     return Column(
       children: [
         Text(
           time,
-          style: TextStyle(
-              color: Colors.grey
+          // icon : / TextStyle : / color :
+          style: textTheme.labelMedium?.copyWith(
+            color: colorTheme.scrim,
           ),
         ),
         SizedBox(
@@ -202,83 +236,212 @@ class _TimetableScreenState extends State<TimetableScreen> {
     );
   }
 
-  Widget drawTimetable() {
+  Widget drawTimetable(List<List<Map<String, String>>> TimetableData, TextTheme textTheme, final colorTheme) {
     return Row(
       children: [
+        for (int j = 0; j < 5; j++)
+          Column(
+            children: [
+              for (int i = 0; i <= 7; i++)
+                subjectWeek(i, TimetableData[j], "day", "subject", "professorName", "room", TIME[i], TIME[i+1], textTheme, colorTheme),
+            ],
+          ),
+        /*
         Column(
           children: [
             for (int i = 0; i <= 7; i++)
-              subjectWeek(i, MonTimetableData, "day", "subject", "professorName", "room", TIME[i], TIME[i+1]),
-          ],
-        ),
-        Column(
-          children: [
-            for (int i = 0; i <= 7; i++)
-            // 0 1 / 1 2 / 2 3 / 3 4 / 4 5 / 5 6 / 6 7
               subjectWeek(i, TueTimetableData, "day", "subject", "professorName", "room", TIME[i], TIME[i+1]),
           ],
         ),
         Column(
           children: [
             for (int i = 0; i <= 7; i++)
-            // 0 1 / 1 2 / 2 3 / 3 4 / 4 5 / 5 6 / 6 7
               subjectWeek(i, WedTimetableData, "day", "subject", "professorName", "room", TIME[i], TIME[i+1]),
           ],
         ),
         Column(
           children: [
             for (int i = 0; i <= 7; i++)
-            // 0 1 / 1 2 / 2 3 / 3 4 / 4 5 / 5 6 / 6 7
               subjectWeek(i, ThurTimetableData, "day", "subject", "professorName", "room", TIME[i], TIME[i+1]),
           ],
         ),
         Column(
           children: [
             for (int i = 0; i <= 7; i++)
-            // 0 1 / 1 2 / 2 3 / 3 4 / 4 5 / 5 6 / 6 7
               subjectWeek(i, FriTimetableData, "day", "subject", "professorName", "room", TIME[i], TIME[i+1]),
           ],
         ),
+        */
       ],
     );
   }
 
-  Widget subjectWeek (int i, final List<Map<String, String>> weekTimetableData, String dataDay, String dataSubject, String dataProfessorName, String dataRoom, String dataStarttime, String dataEndtime) {
+  Widget subjectWeek (int i, final List<Map<String, String>> weekTimetableData, String dataDay, String dataSubject, String dataProfessorName, String dataRoom, String dataStarttime, String dataEndtime, TextTheme textTheme, final colorTheme) {
     return Container(
       width: (MediaQuery.of(context).size.width / 5) - 20, // 한 위젯으로 했을 때 기준으로 원랜 한 20 ~ 30정도?
       height: (MediaQuery.of(context).size.height / 5) - 20,
       decoration: BoxDecoration(
-        color: Colors.black, // 테스트해보기!!
+        color: colorTheme.surface, // 테스트해보기!!
         border: Border.all(
-          color: Colors.grey,
-          width: 3,
+          color: colorTheme.outline,
+          width: 1,
         ),
       ),
       child: Column(
         children: [
           Text(
             weekTimetableData[i][dataSubject]!,
-            style: TextStyle(
-              color: Colors.white,
+            style: textTheme.labelMedium?.copyWith(
+              color: colorTheme.scrim,
             ),
           ),
           Text(
             // TimetableData[i]["professorName"]!,
             weekTimetableData[i][dataProfessorName]!,
-            style: TextStyle(
-              color: Colors.white,
+            style: textTheme.labelMedium?.copyWith(
+              color: colorTheme.scrim,
             ),
           ),
           Text(
             weekTimetableData[i][dataRoom]!,
-            style: TextStyle(
-              color: Colors.white,
+            style: textTheme.labelMedium?.copyWith(
+              color: colorTheme.scrim,
             ),
           ),
         ],
       ),
     );
   }
+
+  // 이거 3개 기능 보면서 익스체인지하기
+  Widget viewerwidget(TextEditingController inputController, String inputText, TextTheme textTheme, final colorTheme) {
+    return AlertDialog(
+      title: const Text (
+          "Dialog Title"
+      ),
+      content: Container(
+        child: Center(
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: drawTimetable(TimetableData, textTheme, colorTheme),
+                  ),
+                  // Text('$inputText'),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                    child: TextField(
+                      controller: inputController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Enter your email',
+                        // 임시
+                        labelStyle: TextStyle(
+                          // color: Colors.redAccent,
+                          color: colorTheme.outline,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          // 임시
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: colorTheme.outline,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)
+                          ),
+                          //
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.redAccent
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                    child: TextField(
+                      controller: inputController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Enter your email',
+                        labelStyle: TextStyle(
+                            color: Colors.redAccent
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)
+                          ),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.redAccent
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)
+                          ),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.redAccent
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        inputText = inputController.text;
+                        modifyTimetableContent(inputText);
+                      });
+                    },
+                    child: Text('Update'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("Close"),
+        ),
+      ],
+    );
+  }
+
+  /*
+  Widget addWidget2() {
+
+  }
+  Widget modifywidget() {
+
+  }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -353,11 +516,13 @@ class _TimetableScreenState extends State<TimetableScreen> {
         }
       }
     });
-
-    void modifyTimetableContent(String InputText) {
-      print("작동중");
-      print(InputText);
-    }
+    final List<Color> colorList = [
+      colorTheme.primary,
+      colorTheme.tertiary,
+      colorTheme.inversePrimary,
+      colorTheme.inverseSurface,
+      colorTheme.outlineVariant,
+    ];
 
     return Material(
       child: SingleChildScrollView(
@@ -368,22 +533,38 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                      "월"
+                    "월",
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorTheme.scrim,
+                    ),
                   ),
                   Text(
-                      "화"
+                    "화",
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorTheme.scrim,
+                    ),
                   ),
                   Text(
-                      "수"
+                    "수",
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorTheme.scrim,
+                    ),
                   ),
                   Text(
-                      "목"
+                    "목",
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorTheme.scrim,
+                    ),
                   ),
                   Text(
-                      "금"
+                    "금",
+                    style: textTheme.labelMedium?.copyWith(
+                      color: colorTheme.scrim,
+                    ),
                   ),
                 ],
               ),
+              /*
               Row(
                 children: [
                   // 수정 기능 테스트 코드
@@ -394,93 +575,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                         // https://juntcom.tistory.com/269
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Dialog Title"),
-                              content: Container(
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () => FocusScope.of(context).unfocus(),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Column(
-                                        children: [
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: drawTimetable(),
-                                          ),
-                                          Text('$inputText'),
-                                          Padding(
-                                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                                            child: TextField(
-                                              controller: inputController,
-                                              decoration: InputDecoration(
-                                                labelText: 'Email',
-                                                hintText: 'Enter your email',
-                                                labelStyle: TextStyle(color: Colors.redAccent),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.emailAddress,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                                            child: TextField(
-                                              controller: inputController,
-                                              decoration: InputDecoration(
-                                                labelText: 'Email',
-                                                hintText: 'Enter your email',
-                                                labelStyle: TextStyle(color: Colors.redAccent),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.emailAddress,
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                inputText = inputController.text;
-                                                modifyTimetableContent(inputText);
-                                              });
-                                            },
-                                            child: Text('Update'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text("Close"),
-                                ),
-                              ],
-                            );
+                            return modifywidget();
                           }
                       );
                     },
@@ -493,63 +588,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                         // https://juntcom.tistory.com/269
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Dialog Title"),
-                              content: Container(
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () => FocusScope.of(context).unfocus(),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Text('$inputText'),
-                                          Padding(
-                                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                                            child: TextField(
-                                              controller: inputController,
-                                              decoration: InputDecoration(
-                                                labelText: 'Email',
-                                                hintText: 'Enter your email',
-                                                labelStyle: TextStyle(color: Colors.redAccent),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.emailAddress,
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                inputText = inputController.text;
-                                                modifyTimetableContent(inputText);
-                                              });
-                                            },
-                                            child: Text('Update'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text("Close"),
-                                ),
-                              ],
-                            );
+                            return addWidget2();
                           }
                       );
                     },
@@ -558,6 +597,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                   // 개인 추가 테스트 코드 작성 예정
                 ],
               ),
+              */
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -568,103 +608,17 @@ class _TimetableScreenState extends State<TimetableScreen> {
                         height: 80,
                       ),
                       for (int k = 0; k < 9; k++)
-                        time(TIME[k]),
+                        time(TIME[k], textTheme, colorTheme),
                     ],
                   ),
                   InkWell(
-                    child: drawTimetable(),
+                    child: drawTimetable(TimetableData, textTheme, colorTheme),
                     onTap: () {
                       showDialog(
                         // https://juntcom.tistory.com/269
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Dialog Title"),
-                              content: Container(
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () => FocusScope.of(context).unfocus(),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Column(
-                                        children: [
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: drawTimetable(),
-                                          ),
-                                          Text('$inputText'),
-                                          Padding(
-                                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                                            child: TextField(
-                                              controller: inputController,
-                                              decoration: InputDecoration(
-                                                labelText: 'Email',
-                                                hintText: 'Enter your email',
-                                                labelStyle: TextStyle(color: Colors.redAccent),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.emailAddress,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                                            child: TextField(
-                                              controller: inputController,
-                                              decoration: InputDecoration(
-                                                labelText: 'Email',
-                                                hintText: 'Enter your email',
-                                                labelStyle: TextStyle(color: Colors.redAccent),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                  borderSide:
-                                                  BorderSide(width: 1, color: Colors.redAccent),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.emailAddress,
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                inputText = inputController.text;
-                                                modifyTimetableContent(inputText);
-                                              });
-                                            },
-                                            child: Text('Update'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text("Close"),
-                                ),
-                              ],
-                            );
+                            return viewerwidget(inputController, inputText, textTheme, colorTheme);
                           }
                       );
                     },
