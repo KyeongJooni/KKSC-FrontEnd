@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kksc_app_fe/Component/TopAppbar.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,23 +20,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyPageScreen extends StatelessWidget {
+  get onLogoPressed => null;
+
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF4285F4),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/gachon_logo.jpg', fit: BoxFit.contain),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      backgroundColor: colorTheme.surface,
+      appBar: GCG_TopAppbar(onLogoPressed: () {}),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -114,7 +107,7 @@ class MyPageScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4285F4),
+                      backgroundColor: colorTheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -214,19 +207,6 @@ class MyPageScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF4285F4),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        currentIndex: 3,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Ideas'),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Food'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My Page'),
-        ],
       ),
     );
   }
