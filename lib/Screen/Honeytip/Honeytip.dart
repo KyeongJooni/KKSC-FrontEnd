@@ -105,7 +105,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                   style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Text(
                 '새내기들을 위한 팁',
                 style: TextStyle(fontSize: 18),
