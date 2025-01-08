@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kksc_app_fe/Component/LabelCard.dart';
+import 'HoneytipDetail.dart';
 
 void main() {
-  runApp(HoneytipApp()); // 'Honeytip' 대신 'HoneytipApp'으로 변경
+  runApp(HoneytipApp());
 }
 
 class HoneytipApp extends StatelessWidget {
@@ -16,117 +16,259 @@ class HoneytipApp extends StatelessWidget {
   }
 }
 
-class HoneytipScreen extends StatelessWidget {
+class HoneytipScreen extends StatefulWidget {
+  @override
+  _HoneytipScreenState createState() => _HoneytipScreenState();
+}
+
+class _HoneytipScreenState extends State<HoneytipScreen> {
+  // 현재 선택된 필터. 초기값은 null로 설정(모든 항목 표시).
+  String? selectedFilter;
+
+  // 데이터 리스트
+  final List<Map<String, String>> tips = [
+    {
+      'title': '시험 준비 꿀팁',
+      'subtitle': '시험 기간에 효율적으로 공부하는 방법',
+      'img': '',
+      'category': '핫 꿀팁', // 카테고리 추가
+    },
+    {
+      'title': '과제 제출 꿀팁',
+      'subtitle': '제출 마감일 놓치지 않는 방법',
+      'img': '',
+      'category': '핫 꿀팁', // 카테고리 추가
+    },
+    {
+      'title': '시간 관리 꿀팁',
+      'subtitle': '시간을 효과적으로 사용하는 방법',
+      'img': '',
+      'category': '편의 사항 꿀팁', // 카테고리 추가
+    },
+    {
+      'title': '교내 맛집 꿀팁',
+      'subtitle': '교내에서 소문난 맛집',
+      'img': '',
+      'category': '식당 꿀팁', // 카테고리 추가
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    // 선택된 필터에 따라 데이터 필터링
+    final filteredTips = selectedFilter == null
+        ? tips // 필터가 선택되지 않은 경우 전체 항목 표시
+        : tips.where((tip) => tip['category'] == selectedFilter).toList();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 첫 번째 섹션
+            // 제목 섹션
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '선배들의 꿀팁',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    '꿀팁',
+                    style: TextStyle(fontSize: 28, color: Color(0xFF171C1F)),
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    '편의 시설',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 16),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          child: LabelCard(
-                            label: "Study",
-                            name: "Library Access Pass",
-                            text: "인원 24/7",
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        SizedBox(
-                          width: 200,
-                          child: LabelCard(
-                            label: "Food",
-                            name: "Cafeteria",
-                            text: "메뉴 매일 업데이트",
-                          ),
-                        ),
-                      ],
-                    ),
+                  IconButton(
+                    icon: Icon(Icons.search, color: Color(0xFF171C1F)),
+                    onPressed: () {
+                      // 검색 버튼 클릭 시 동작
+                    },
                   ),
                 ],
               ),
             ),
-            Divider(color: Colors.grey), // 섹션 구분선 추가
-            // 두 번째 섹션
+
+            // 필터 버튼 섹션
             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.grey[300],
-                      radius: 25,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // 가로 스크롤 활성화
+                child: Row(
+                  children: [
+                    FilterButton(
+                      label: "핫 꿀팁",
+                      isSelected: selectedFilter == "핫 꿀팁",
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = selectedFilter == "핫 꿀팁"
+                              ? null // 선택된 필터를 다시 누르면 전체로 초기화
+                              : "핫 꿀팁";
+                        });
+                      },
                     ),
-                    title: Text(
-                      'Exclusive Insider Tips',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(width: 8),
+                    FilterButton(
+                      label: "편의 사항 꿀팁",
+                      isSelected: selectedFilter == "편의 사항 꿀팁",
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = selectedFilter == "편의 사항 꿀팁"
+                              ? null // 선택된 필터를 다시 누르면 전체로 초기화
+                              : "편의 사항 꿀팁";
+                        });
+                      },
+                    ),
+                    SizedBox(width: 8),
+                    FilterButton(
+                      label: "식당 꿀팁",
+                      isSelected: selectedFilter == "식당 꿀팁",
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = selectedFilter == "식당 꿀팁"
+                              ? null // 선택된 필터를 다시 누르면 전체로 초기화
+                              : "식당 꿀팁";
+                        });
+                      },
+                    ),
+                    SizedBox(width: 8),
+                    FilterButton(
+                      label: "꿀강 꿀팁",
+                      isSelected: selectedFilter == "꿀강 꿀팁",
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = selectedFilter == "꿀강 꿀팁"
+                              ? null // 선택된 필터를 다시 누르면 전체로 초기화
+                              : "꿀강 꿀팁";
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 16,),
+
+            // 데이터 리스트 섹션
+            if (filteredTips.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(
+                    '해당 꿀팁에 대한 글이 없습니다! 작성해주세요.',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            else
+              ListView.separated(
+                physics: NeverScrollableScrollPhysics(), // 스크롤 문제 방지
+                shrinkWrap: true, // ListView를 Column 안에 넣을 때 필요
+                itemCount: filteredTips.length,
+                itemBuilder: (context, index) {
+                  final tip = filteredTips[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HoneytipDetail(
+                            title: tip['title']!,
+                            subtitle: tip['subtitle']!,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 72, // 각 항목의 높이 72로 설정
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tip['title']!,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  tip['subtitle']!,
+                                  style: TextStyle(fontSize: 14, color: Color(0x80000000)),
+                                ),
+                              ],
+                            ),
+                            Image.network(
+                              tip['img']!,
+                              width: 64,
+                              height: 64,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.image, size: 64, color: Colors.grey);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    subtitle: Text(
-                      'Secret shortcuts revealed',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    '새내기들을 위한 팁',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  ListTile(
-                    leading: Image.asset(
-                      'assets/school.png',
-                      width: 35,
-                      height: 35,
-                    ),
-                    title: Text('학교 길안내'),
-                    subtitle: Text(
-                      '복정동 가는 지름길',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Divider(color: Colors.grey),
-                  ListTile(
-                    leading: Image.asset(
-                      'assets/bulb.png',
-                      width: 37,
-                      height: 37,
-                    ),
-                    title: Text('공부 팁'),
-                    subtitle: Text(
-                      '학교에서 공부하기 좋은 곳',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Divider(color: Colors.grey),
-                ],
+                  );
+                },
+
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.grey, // 구분선 색상
+                    thickness: 1, // 구분선 두께
+                    height: 0, // 구분선 위아래 여백
+                  );
+                },
               ),
-            ),
           ],
+        ),
+      ),
+
+      // 오른쪽 아래 작성 버튼 추가
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 버튼 클릭 시 동작 (새 글 작성 화면으로 이동)
+        },
+        child: Icon(Icons.edit), // + 아이콘
+        backgroundColor: Color(0xFFE4E9ED), // 버튼 색상
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+}
+
+// 필터 버튼 위젯
+class FilterButton extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const FilterButton({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.orange : Colors.grey[200],
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontSize: 14,
+          ),
         ),
       ),
     );
