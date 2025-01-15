@@ -20,7 +20,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  String inputText = "검색";
+  String inputText = "검색"; // AppBar에 표시될 기본 텍스트
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: Text(
           inputText,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black), // 텍스트 색상
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: TextField(
           onChanged: (value) {
             setState(() {
-              inputText = value.isEmpty ? "검색" : value;
+              inputText = value.isEmpty ? "검색" : value; // 입력값이 없으면 기본 텍스트 유지
             });
           },
           decoration: InputDecoration(
