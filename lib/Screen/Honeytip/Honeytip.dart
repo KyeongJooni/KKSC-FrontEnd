@@ -26,32 +26,33 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
   String? selectedFilter;
 
   // 데이터 리스트
-  final List<Map<String, String>> tips = [
+  final List<Map<String, dynamic>> tips = [
     {
       'title': '시험 준비 꿀팁',
       'subtitle': '시험 기간에 효율적으로 공부하는 방법',
-      'img': '',
+      'img': ['assets/img/icon/school.png'],
       'category': '핫 꿀팁', // 카테고리 추가
     },
     {
       'title': '과제 제출 꿀팁',
       'subtitle': '제출 마감일 놓치지 않는 방법',
-      'img': '',
+      'img': ['assets/img/icon/bell.png', 'assets/img/icon/bulb.png'],
       'category': '핫 꿀팁', // 카테고리 추가
     },
     {
       'title': '시간 관리 꿀팁',
       'subtitle': '시간을 효과적으로 사용하는 방법',
-      'img': '',
+      'img': ['assets/img/icon/pin.png','assets/img/icon/bell.png', 'assets/img/icon/bulb.png'],
       'category': '편의 사항 꿀팁', // 카테고리 추가
     },
     {
       'title': '교내 맛집 꿀팁',
       'subtitle': '교내에서 소문난 맛집',
-      'img': '',
+      'img': ['assets/img/icon/pizza.png','assets/img/icon/bell.png','assets/img/icon/bulb.png','assets/img/icon/pin.png'],
       'category': '식당 꿀팁', // 카테고리 추가
     },
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +174,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                           builder: (context) => HoneytipDetail(
                             title: tip['title']!,
                             subtitle: tip['subtitle']!,
+                            img: List<String>.from(tip['img']), // img를 리스트로 변환
                           ),
                         ),
                       );
@@ -200,15 +202,15 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                                 ),
                               ],
                             ),
-                            Image.network(
-                              tip['img']!,
+                            Image.asset(
+                              tip['img'][0], // 첫 번째 이미지 경로 사용
                               width: 64,
                               height: 64,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Icon(Icons.image, size: 64, color: Colors.grey);
                               },
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -234,7 +236,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
           // 버튼 클릭 시 동작 (새 글 작성 화면으로 이동)
         },
         child: Icon(Icons.edit), // + 아이콘
-        backgroundColor: Color(0xFFE4E9ED), // 버튼 색상
+        backgroundColor: Color(0xFFE4E9ED),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
