@@ -460,7 +460,9 @@ class _MainpageScreenState extends State<MainpageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).colorScheme;
     return Scaffold(
+      backgroundColor: colorTheme.surface,
       body: SingleChildScrollView(
         child: Column(
           children: [

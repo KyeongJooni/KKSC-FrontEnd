@@ -1,52 +1,11 @@
-// 학교 시간표 api 추출 및 시간표 구현기능 제공
-// 시간표 수정 및 개인 추가 기능 구현(학교 시간표 api에 없는 것) (에브리타임과 유사하게 구현)
-
-// 기본 라이브러리
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
-// component
-// Appbar
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/Appbar/CustomTopAppbar.dart';
-// CommonColumnField
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldAlarmpage.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/CommonColumnField/CommonColumnFieldBasic.dart';
-// LabelCard
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/LabelCard/LabelCardMainpage.dart';
-// ReviewCard
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Component/ReviewCard/ReviewCardMainpage.dart';
-
-// HoneyTip - 신입생 팁 관련 화면 이동 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Honeytip/Honeytip.dart';
-
-// Mainpage
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/AlarmPage.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/Mainpage.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/freshman_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Mainpage/timetable_tip.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Notice/Notice.dart';
-
-// Mypage
-// Siguuppage
-
-// Notice
-
-// Restaurant - 음식 관련 화면 이동 dart + 음식 관련 리뷰 조회 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Restaurant/Restaurant.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/Screen/Timetable/everytime_timetable.dart';
-
-// Timetable
-
-// util - 변수 및 폰트 지정 위한 dart
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_model.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/api/get_services.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/color_theme.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/cosnt_value.dart';
-import 'package:projecr_kksc_gachon_gil_project_recent_flutter_project/util/text_styles.dart';
+import 'package:kksc_app_fe/util/cosnt_value.dart';
+import 'package:kksc_app_fe/util/text_styles.dart';
 
 void main() => runApp(MyApp());
 

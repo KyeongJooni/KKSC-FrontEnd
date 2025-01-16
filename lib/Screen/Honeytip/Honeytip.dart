@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kksc_app_fe/util/cosnt_value.dart';
+import 'package:kksc_app_fe/util/router_setting.dart';
 import 'HoneytipDetail.dart';
 
 void main() {
@@ -232,6 +235,7 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // 버튼 클릭 시 동작 (새 글 작성 화면으로 이동)
+          context.goNamed(pageNameSearch(routeHoneyTipPageWritePage), pathParameters: {"title": "title", "subtitle": "1234"});
         },
         child: Icon(Icons.edit), // + 아이콘
         backgroundColor: Color(0xFFE4E9ED), // 버튼 색상
