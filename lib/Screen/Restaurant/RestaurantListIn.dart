@@ -3,14 +3,14 @@ import 'package:kksc_app_fe/util/text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kksc_app_fe/util/color_theme.dart';
 
-class RestaurantView extends StatefulWidget {
-  const RestaurantView({super.key});
+class RestaurantInView extends StatefulWidget {
+  const RestaurantInView({super.key});
 
   @override
-  State<RestaurantView> createState() => _RestaurantViewState();
+  State<RestaurantInView> createState() => _RestaurantInViewState();
 }
 
-class _RestaurantViewState extends State<RestaurantView> {
+class _RestaurantInViewState extends State<RestaurantInView> {
   GoogleMapController? mapController;
 
   @override

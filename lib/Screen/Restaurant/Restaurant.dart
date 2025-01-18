@@ -5,7 +5,6 @@ import 'package:kksc_app_fe/Screen/Restaurant/RestaurantListOut.dart';
 import 'package:kksc_app_fe/Component/LabelCard.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-
 class RestaurantScreen extends StatelessWidget {
   final List<Map<String, String>> cardData = [
     {
@@ -325,7 +324,7 @@ class NavigateButton extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return RestaurantView(); // 기존 내부 식당 화면
+                return RestaurantInView(); // 기존 내부 식당 화면
               },
             ),
           );
@@ -334,7 +333,7 @@ class NavigateButton extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return RestaurantListOut(); // 외부 식당 화면
+                return RestaurantOutView(); // 외부 식당 화면
               },
             ),
           );
