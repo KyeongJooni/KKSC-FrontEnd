@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HoneytipDetail extends StatelessWidget {
+class HoneytipDetail extends StatefulWidget {
   final String title;
   final String subtitle;
   final List<String> img; // 이미지 리스트
@@ -10,6 +10,23 @@ class HoneytipDetail extends StatelessWidget {
     required this.subtitle,
     required this.img,
   });
+
+  @override
+  _HoneytipDetailState createState() => _HoneytipDetailState();
+}
+
+class _HoneytipDetailState extends State<HoneytipDetail> {
+  final TextEditingController _commentController = TextEditingController();
+  final List<String> _comments = [];
+
+  void _addComment() {
+    if (_commentController.text.isNotEmpty) {
+      setState(() {
+        _comments.add(_commentController.text);
+        _commentController.clear();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +41,7 @@ class HoneytipDetail extends StatelessWidget {
           },
         ),
         title: Row(
-          mainAxisSize: MainAxisSize.min, // Row의 크기를 최소로 설정
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               '꿀팁',
@@ -42,48 +59,95 @@ class HoneytipDetail extends StatelessWidget {
             Row(
               children: [
                 Icon(Icons.account_circle),
-                SizedBox(width: 8), // 아이콘과 텍스트 사이 간격
+                SizedBox(width: 8),
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyle(fontSize: 16),
                 ),
               ],
             ),
             SizedBox(height: 8),
             Text(
-              subtitle,
+              widget.subtitle,
               style: TextStyle(fontSize: 12, color: Color(0xFF171C1F)),
             ),
             SizedBox(height: 16),
 
             // 이미지 섹션
-            if (img.isNotEmpty)
-              _buildImageSection(img),
-
+            if (widget.img.isNotEmpty) _buildImageSection(widget.img),
             SizedBox(height: 16),
 
-            // 댓글 섹션
-            Text(
-              'Comments',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            // 댓글 입력창
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _commentController,
+                    decoration: InputDecoration(
+                      hintText: 'Comments',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                IconButton(
+                  onPressed: _addComment,
+                  icon: Icon(Icons.send),
+                ),
+              ],
             ),
-            SizedBox(height: 8),
+            SizedBox(width: 8),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 3,
+              itemCount: _comments.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey[400],
-                    child: Icon(Icons.person, color: Colors.white),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.grey[400],
+                        child: Icon(Icons.person, color: Colors.white),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Name',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              _comments[index],
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        'etc',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
                   ),
-                  title: Text('Name'),
-                  subtitle: Text('Comments'),
-                  trailing: Text('etc'),
                 );
               },
             ),
+
+
           ],
         ),
       ),
@@ -93,7 +157,6 @@ class HoneytipDetail extends StatelessWidget {
   // 이미지 섹션을 위한 위젯
   Widget _buildImageSection(List<String> images) {
     if (images.length == 1) {
-      // 이미지가 1개일 때
       return Image.asset(
         images[0],
         width: double.infinity,
@@ -101,7 +164,6 @@ class HoneytipDetail extends StatelessWidget {
         fit: BoxFit.cover,
       );
     } else if (images.length == 2) {
-      // 이미지가 2개일 때
       return Row(
         children: images.map((image) {
           return Expanded(
@@ -117,7 +179,6 @@ class HoneytipDetail extends StatelessWidget {
         }).toList(),
       );
     } else if (images.length == 3) {
-      // 이미지가 3개일 때
       return Column(
         children: [
           Row(
@@ -146,7 +207,6 @@ class HoneytipDetail extends StatelessWidget {
         ],
       );
     } else {
-      // 이미지가 4개 이상일 때 그리드로 표시
       return GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
@@ -162,5 +222,3 @@ class HoneytipDetail extends StatelessWidget {
     }
   }
 }
-
-
