@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(MyApp());
@@ -23,10 +27,12 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
   String tipTitle = "";
   List<String> tags = [];
   bool isTagInputVisible = false;
-  final TextEditingController _tagController = TextEditingController(); // 태그 입력 컨트롤러
+  final TextEditingController _tagController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  List<MediaItem> mediaItems = [];
+  List<File> attachedFiles = [];
 
   void _addTag() {
-    // 태그 추가
     if (_tagController.text.isNotEmpty) {
       setState(() {
         tags.add(_tagController.text);
@@ -34,6 +40,75 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
         isTagInputVisible = false;
       });
     }
+  }
+
+  Future<void> _pickImageFromCamera() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        mediaItems.add(MediaItem.image(File(image.path)));
+      });
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    final List<XFile>? selectedImages = await _picker.pickMultiImage();
+    if (selectedImages != null && selectedImages.isNotEmpty) {
+      setState(() {
+        mediaItems.addAll(
+            selectedImages.map((image) => MediaItem.image(File(image.path))));
+      });
+    }
+  }
+
+  Future<void> _recordVideo() async {
+    final XFile? recordedVideo = await _picker.pickVideo(source: ImageSource.camera);
+    if (recordedVideo != null) {
+      final File videoFile = File(recordedVideo.path);
+      final VideoPlayerController controller = VideoPlayerController.file(videoFile)
+        ..initialize().then((_) {
+          setState(() {});
+        });
+
+      setState(() {
+        mediaItems.add(MediaItem.video(videoFile, controller));
+      });
+    }
+  }
+
+  Future<void> _attachFile() async {
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+    );
+    if (result != null) {
+      setState(() {
+        attachedFiles.addAll(result.files.map((file) => File(file.path!)));
+      });
+    }
+  }
+
+  void _deleteMedia(int index) {
+    setState(() {
+      final item = mediaItems[index];
+      if (item.type == MediaType.video) {
+        item.videoController?.dispose();
+      }
+      mediaItems.removeAt(index);
+    });
+  }
+
+  void _deleteFile(int index) {
+    setState(() {
+      attachedFiles.removeAt(index);
+    });
+  }
+
+  @override
+  void dispose() {
+    for (final item in mediaItems) {
+      item.videoController?.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -45,6 +120,7 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
         leading: IconButton(
           icon: Icon(Icons.close, color: Colors.black),
           onPressed: () {
+            // 닫기 동작
           },
         ),
         title: Text(
@@ -55,7 +131,6 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
           IconButton(
             icon: Icon(Icons.check, color: Colors.blue),
             onPressed: () {
-              // 저장 동작
               print("꿀팁 제목: $tipTitle");
               print("태그 목록: $tags");
             },
@@ -80,29 +155,94 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
               ),
             ),
           ),
-          if (tipTitle.isNotEmpty || tags.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          if (mediaItems.isNotEmpty || attachedFiles.isNotEmpty || tags.isNotEmpty)
+            Expanded(
+              child: ListView(
                 children: [
-                  if (tipTitle.isNotEmpty)
-                    Text(
-                      tipTitle,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  if (mediaItems.isNotEmpty)
+                    SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: mediaItems.length,
+                        itemBuilder: (context, index) {
+                          final item = mediaItems[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                if (item.type == MediaType.image)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.file(
+                                      item.file!,
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                if (item.type == MediaType.video)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Container(
+                                      width: 150,
+                                      height: 150,
+                                      color: Colors.black12,
+                                      child: item.videoController != null &&
+                                          item.videoController!.value.isInitialized
+                                          ? VideoPlayer(item.videoController!)
+                                          : Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  ),
+                                IconButton(
+                                  icon: Icon(Icons.close, color: Colors.red),
+                                  onPressed: () {
+                                    _deleteMedia(index);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  if (attachedFiles.isNotEmpty)
+                    Column(
+                      children: attachedFiles.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final file = entry.value;
+                        return ListTile(
+                          leading: Icon(Icons.attach_file),
+                          title: Text(
+                            file.path.split('/').last,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.close, color: Colors.red),
+                            onPressed: () {
+                              _deleteFile(index);
+                            },
+                          ),
+                        );
+                      }).toList(),
                     ),
                   if (tags.isNotEmpty)
-                    Wrap(
-                      spacing: 8.0,
+                    Column(
                       children: tags.map((tag) {
-                        return Chip(
-                          label: Text("#$tag"),
-                          deleteIcon: Icon(Icons.close, size: 16),
-                          onDeleted: () {
-                            setState(() {
-                              tags.remove(tag);
-                            });
-                          },
+                        return ListTile(
+                          leading: Icon(Icons.tag, color: Colors.blue),
+                          title: Text(tag),
+                          trailing: IconButton(
+                            icon: Icon(Icons.close, color: Colors.red),
+                            onPressed: () {
+                              setState(() {
+                                tags.remove(tag);
+                              });
+                            },
+                          ),
                         );
                       }).toList(),
                     ),
@@ -117,42 +257,38 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
                   Expanded(
                     child: TextField(
                       controller: _tagController,
-                      autofocus: true,
                       decoration: InputDecoration(
-                        hintText: "태그 작성",
+                        hintText: "태그 입력",
                         border: OutlineInputBorder(),
                       ),
-                      onSubmitted: (value) {
-                        _addTag();
-                      },
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.add, color: Colors.blue),
+                  SizedBox(width: 8),
+                  ElevatedButton(
                     onPressed: _addTag,
+                    child: Text("추가"),
                   ),
                 ],
               ),
             ),
-          Expanded(child: Container()),
-          Container(
-            color: Colors.grey[100],
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildOption(Icons.photo_library, "사진 추가"),
-                _buildOption(Icons.camera_alt, "사진 촬영"),
-                _buildOption(Icons.videocam, "비디오 촬영"),
-                _buildOption(Icons.attach_file, "파일 첨부"),
-                _buildOption(Icons.tag, "태그 작성", onTap: () {
-                  setState(() {
-                    isTagInputVisible = true;
-                  });
-                }),
-              ],
-            ),
-          ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.grey[100],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildOption(Icons.photo_library, "사진 추가", onTap: _pickImageFromGallery),
+            _buildOption(Icons.camera_alt, "사진 촬영", onTap: _pickImageFromCamera),
+            _buildOption(Icons.videocam, "비디오 촬영", onTap: _recordVideo),
+            _buildOption(Icons.attach_file, "파일 첨부", onTap: _attachFile),
+            _buildOption(Icons.tag, "태그 작성", onTap: () {
+              setState(() {
+                isTagInputVisible = true;
+              });
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -165,3 +301,17 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
     );
   }
 }
+
+class MediaItem {
+  final MediaType type;
+  final File? file;
+  final VideoPlayerController? videoController;
+
+  MediaItem.image(this.file)
+      : type = MediaType.image,
+        videoController = null;
+
+  MediaItem.video(this.file, this.videoController) : type = MediaType.video;
+}
+
+enum MediaType { image, video }
