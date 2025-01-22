@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Honeytip.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -35,7 +37,14 @@ class _SearchScreenState extends State<SearchScreen> {
         foregroundColor: Colors.black,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HoneytipApp(),
+              ),
+            );
+          },
         ),
       ),
       body: Padding(

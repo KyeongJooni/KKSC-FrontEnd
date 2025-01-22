@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'HoneytipDetail.dart';
+import 'HoneytipDetailWrite.dart';
+import 'HoneytipSearch.dart';
 
 void main() {
   runApp(HoneytipApp());
@@ -79,6 +81,12 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
                   IconButton(
                     icon: Icon(Icons.search, color: Color(0xFF171C1F)),
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchScreen(),
+                        ),
+                      );
                       // 검색 버튼 클릭 시 동작
                     },
                   ),
@@ -233,6 +241,12 @@ class _HoneytipScreenState extends State<HoneytipScreen> {
       // 오른쪽 아래 작성 버튼 추가
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TipCreationScreen(),
+            ),
+          );
           // 버튼 클릭 시 동작 (새 글 작성 화면으로 이동)
         },
         child: Icon(Icons.edit), // + 아이콘

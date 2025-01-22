@@ -4,6 +4,8 @@ import 'package:video_player/video_player.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
+import 'Honeytip.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -120,6 +122,12 @@ class _TipCreationScreenState extends State<TipCreationScreen> {
         leading: IconButton(
           icon: Icon(Icons.close, color: Colors.black),
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HoneytipApp(),
+              ),
+            );
             // 닫기 동작
           },
         ),
